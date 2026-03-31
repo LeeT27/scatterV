@@ -6,7 +6,7 @@
 March 31, 2026
 
 # [ScatterV]
-What the project does
+ScatterV is a RISC-V processor in Verilog that implements most of 
 Project Background: 
 The Problem Statement: 
 
