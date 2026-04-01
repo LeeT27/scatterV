@@ -12,7 +12,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Goals
-- Understand the architecture a RISC-V processor
+- Understand the architecture of a RISC-V processor
 - Apply the math theory behind [hardware random number generation](#) to create custom instructions
 - Understand the effects of [pipeline hazards](#) and how they can be mitigated
 - Learn the full [FPGA toolchain flow](#) (synthesis, implementation, bitstream generation) with Vivado  
