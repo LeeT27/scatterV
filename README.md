@@ -12,13 +12,13 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Goals
-1. Understand the architecture of a RISC-V processor ([Deep Dive](#architecture-of-a-risc-v-processor))
-2. Apply the math theory behind [hardware random number generation](#) to create custom instructions
-3. Understand the effects of [pipeline hazards](#) and how they can be mitigated
-4. Build familiarity with Questasim simulation
-5. Learn the full [FPGA toolchain flow](#) (synthesis, implementation, bitstream generation) with Vivado
-6. Learn to interface with FPGA peripherals like [digit displays](#)
-7. Learn [RISC-V assembly](#) syntax to compile programs for processor
+1. Understand the architecture of a RISC-V processor ([Learn more](#architecture-of-a-risc-v-processor))
+2. Apply the math theory behind hardware random number generation to create custom instructions ([Learn more](#architecture-of-a-risc-v-processor))
+3. Understand the effects of pipeline hazards and how they can be mitigated ([Learn more](#architecture-of-a-risc-v-processor))
+4. Build familiarity with Questasim simulation ([Learn more](#architecture-of-a-risc-v-processor))
+5. Learn the full FPGA toolchain flow (synthesis, implementation, bitstream generation) with Vivado ([Learn more](#architecture-of-a-risc-v-processor))
+6. Learn to interface with FPGA peripherals like digit displays ([Learn more](#architecture-of-a-risc-v-processor))
+7. Learn RISC-V assembly syntax to compile programs for processor ([Learn more](#architecture-of-a-risc-v-processor))
 
 ---
 
