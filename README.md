@@ -40,9 +40,6 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 - **Demo Program:** RISC-V assembly
   
 ---
-## Verification
-
----
 ## Demo
 
 ---
