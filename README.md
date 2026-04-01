@@ -12,12 +12,13 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Goals
-- Implement the full RV32I base instruction set that can run basic RISC-V assembly
-- Understand the math theory behind hardware random number generation to add on a custom `RND` instruction
-- Understand the impact of pipeline hazards and apply mitigation techniques
-- Develop experience with the full FPGA toolchain flow (synthesis, implementation, bitstream generation) using Vivado
-- Interface with FPGA peripherals, like outputing decimal numbers on a seven-segment display
-- Program an assembly program that utilizes counters and the 'RND' instruction for a demo video
+- Implement the full **[RV32I base instruction set](#)** that can run basic RISC-V assembly  
+- Understand the math theory behind **[hardware random number generation](#)** to add on a custom `RND` instruction  
+- Understand the impact of **[pipeline hazards](#)** and apply mitigation techniques  
+- Develop experience with the full **[FPGA toolchain flow](#)** (synthesis, implementation, bitstream generation) using Vivado  
+- Interface with FPGA peripherals, like **[outputing decimal numbers on a seven-segment display](#)**  
+- Program an **[assembly program](#)** that utilizes counters and the 'RND' instruction for a demo video
+
 ---
 
 ## Features
