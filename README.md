@@ -12,7 +12,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Goals
-1. Understand the architecture of a RISC-V processor
+1. Understand the architecture of a RISC-V processor ([Deep Dive](#architecture-of-a-risc-v-processor))
 2. Apply the math theory behind [hardware random number generation](#) to create custom instructions
 3. Understand the effects of [pipeline hazards](#) and how they can be mitigated
 4. Build familiarity with Questasim simulation
