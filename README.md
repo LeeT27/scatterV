@@ -41,6 +41,9 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
   
 ---
 ## Demo
+
+---
+## Deep Dive Notes
 ### RISC-V Architecture
 hullo
 ### `RND` Instruction Implementation
@@ -55,9 +58,6 @@ hullo
 hullo
 ### RISC-V Assembly
 hullo
-
----
-## Deep Dive Notes
 
 ---
 
