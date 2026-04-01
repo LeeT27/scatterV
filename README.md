@@ -32,7 +32,13 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Tools & Hardware
-
+- **FPGA Board:** [model], seven-segment displays
+- **HDL:** Verilog
+- **IDE:** Visual Studio Code
+- **FPGA Deployment software:** Xilinx Vivado (synthesis, implementation, bitstream generation)
+- **RTL Simulation:** QuestaSim
+- **Demo Program:** RISC-V assembly
+  
 ---
 ## Verification
 
