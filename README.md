@@ -41,6 +41,20 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
   
 ---
 ## Demo
+### RISC-V Architecture
+hullo
+### `RND` Instruction Implementation
+hullo
+### Pipeline Hazards
+hullo
+### RTL Verification
+hullo
+### FPGA Synthesis
+hullo
+### Digit Display
+hullo
+### RISC-V Assembly
+hullo
 
 ---
 ## Deep Dive Notes
