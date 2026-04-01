@@ -12,23 +12,23 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Goals
-- Understand the architecture of a RISC-V processor
-- Apply the math theory behind [hardware random number generation](#) to create custom instructions
-- Understand the effects of [pipeline hazards](#) and how they can be mitigated
-- Build familiarity with Questasim simulation
-- Learn the full [FPGA toolchain flow](#) (synthesis, implementation, bitstream generation) with Vivado
-- Learn to interface with FPGA peripherals like [digit displays](#)
-- Learn [RISC-V assembly](#) syntax to compile programs for processor
+1. Understand the architecture of a RISC-V processor
+2. Apply the math theory behind [hardware random number generation](#) to create custom instructions
+3. Understand the effects of [pipeline hazards](#) and how they can be mitigated
+4. Build familiarity with Questasim simulation
+5. Learn the full [FPGA toolchain flow](#) (synthesis, implementation, bitstream generation) with Vivado
+6. Learn to interface with FPGA peripherals like [digit displays](#)
+7. Learn [RISC-V assembly](#) syntax to compile programs for processor
 
 ---
 
 ## Features
-1. **Instruction Set:** RV32I base instructions — arithmetic, logic, loads, stores, branches, and jumps — plus a custom `RND` instruction for pseudorandom number generation every clock cycle  
-2. **Assembly Compatibility:** Runs standard RISC-V assembly programs with full compatibility  
-3. **FPGA Deployment:** Easily deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
-4. **Display Output:** Seven-segment display shows decimal numbers directly from the processor  
-5. **Pipeline Protection:** Hazard protection using forwarding and stalling  
-6. **Demo Program:** Assembly program that utilizes counters and `RND` for FPGA demo  
+- **Instruction Set:** RV32I base instructions — arithmetic, logic, loads, stores, branches, and jumps — plus a custom `RND` instruction for pseudorandom number generation every clock cycle  
+- **Assembly Compatibility:** Runs standard RISC-V assembly programs with full compatibility  
+- **FPGA Deployment:** Easily deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
+- **Display Output:** Seven-segment display shows decimal numbers directly from the processor  
+- **Pipeline Protection:** Hazard protection using forwarding and stalling  
+- **Demo Program:** Assembly program that utilizes counters and `RND` for FPGA demo  
 
 ---
 ## Tools & Hardware
