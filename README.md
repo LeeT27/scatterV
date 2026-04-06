@@ -47,8 +47,13 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ### RISC-V Architecture
 hullo
 ### `RND` Instruction Implementation
-The core of ScatterV's random number generation comes from the abstract algebra theory of primitive polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating needs to be maximized. This is where primitive polynomials comes in. A primitive polynomial is a special type of of irreduccible polynomial, where it cannot be factored into smaller polynomials. Another property is that primitive polynomials of degree n have (base^n-1) unique states before repeating to its old pattern, where the base must be prime. A good analogy is that if you have a deck of 52 cards, the shuffling mechanism of a primitive polynomial would go through all 52 cards before repeating the pattern rather than a smaller pattern of cycling through the same 8 cards. All examples will be explained in base 2 due to its consistency with digital logic. Lets look at an example: 
-<img width="701" height="293" alt="image" src="https://github.com/user-attachments/assets/15d63223-3427-4102-9520-2c067ec7e8e1" />
+The core of ScatterV's random number generation comes from the abstract algebra theory of primitive polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating needs to be maximized. This is where primitive polynomials comes in. A primitive polynomial is a special type of of irreduccible polynomial, where it cannot be factored into smaller polynomials. Another property is that primitive polynomials of degree n have (base^n-1) unique states before repeating to its old pattern, where the base must be prime. A good analogy is that if you have a deck of 52 cards, the shuffling mechanism of a primitive polynomial would go through all 52 cards before repeating the pattern rather than a smaller pattern of cycling through the same 8 cards. Everything will be explained in base 2 due to its consistency with digital logic. Here is are example of a primitive polynomial of degree n = 3: 
+<img width="381" height="148" alt="image" src="https://github.com/user-attachments/assets/21e95028-840b-4060-81ce-e2ce1f66baca" />
+(2^3-1) = 7 unique states
+
+
+
+
 
 
 
