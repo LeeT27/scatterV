@@ -47,7 +47,9 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ### RISC-V Architecture
 hullo
 ### `RND` Instruction Implementation
-To 
+The core of ScatterV's random number generation comes from the mathmatic theory of primative polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating needs to be maximized. This is where primtive polynomials comes in. A primative polynomial is a special type of of irreduccible polynomial, where it cannot be factored into smaller polynomials. Another property is that primative polynomials of degree n have (10^n-1) unique combinations before repeating to its old pattern.
+
+
 ### Pipeline Hazards
 hullo
 ### RTL Verification
