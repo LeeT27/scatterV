@@ -32,7 +32,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Tools & Hardware
-- **FPGA Board:** [model], seven-segment displays
+- **FPGA Board:** RealDigital Boolean Board (Xilinx Spartan-7 XC7S50), seven-segment displays
 - **HDL:** SystemVerilog
 - **IDE:** Visual Studio Code
 - **FPGA Deployment software:** Xilinx Vivado (synthesis, implementation, bitstream generation)
