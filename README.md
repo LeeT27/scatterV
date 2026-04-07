@@ -44,9 +44,9 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Deep Dive Notes
-### RISC-V Architecture
+### 🏗️ RISC-V Architecture
 hullo
-### `RND` Instruction Implementation
+### 🎲 `RND` Instruction Implementation
 The core of ScatterV's random number generation comes from the abstract algebra theory of primitive polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating the same pattern needs to be maximized. This is where the magic of primitive polynomials comes in. A primitive polynomial is a special type of irreduccible polynomial, meaning that it cannot be factored into smaller polynomials. Another property is that a primitive polynomial of degree n has ($base^{n}$-1) unique states before repeating to its old pattern (base must be prime). A good analogy is that if you have a deck of 52 cards, the shuffling mechanism of a primitive polynomial would go through all 52 cards before repeating the pattern rather than a smaller pattern of cycling through the same 8 cards. Everything will be explained in base 2 due to its consistency with digital logic. Here is are example of a primitive polynomial of degree n = 3: 
 
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/21e95028-840b-4060-81ce-e2ce1f66baca" />
@@ -57,15 +57,15 @@ To implement this theory into ScatterV, I used an LSFR to utilize primitive poly
 
 
 
-### Pipeline Hazards
+### 🚧 Pipeline Hazards
 hullo
-### RTL Verification
+### ✅ RTL Verification
 hullo
-### FPGA Synthesis
+### ⚙️ FPGA Synthesis
 hullo
-### Digit Display
+### 💡 Seven-Segment Digit Display
 hullo
-### RISC-V Assembly
+### 📜 RISC-V Assembly
 hullo
 
 ---
