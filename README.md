@@ -66,9 +66,9 @@ hullo
 ### ⚙️ FPGA Synthesis
 hullo
 ### 💡 Seven-Segment Digit Display
-hullo
+Throughout the running process, a 32 bit register value is stored in binary, but needs to be shown on the FPGA peripheral as a human-readable decimal number. 
 ### 📜 RISC-V Assembly
-RISC-V is an open source instruction set architecture that is popular in IoT, embedded systems, and computing. Programs written in RISC-V assembly can run sequential instructions that handle fundamental operations such as artithmetic, data transfer, and control flow. Two major benefits that makes RISC-V special is its easy access to modify the instruction set and reduced complexity in hardware design. Typically, RISC-V has 32 bits per instruction, 32 registers present apart from PC, 8 bit addressability, 8 bits per memory location, and stores the least significant byte at the lowest memory address (little endian). 
+RISC-V is an open source instruction set architecture that is popular in IoT, embedded systems, and computing. Programs written in RISC-V assembly can run sequential instructions that handle fundamental operations such as artithmetic, data transfer, and control flow. Two major benefits that makes RISC-V special is its easy access to modify the instruction set and reduced complexity in hardware design. Typically, RISC-V has 32 bits per instruction, 32 registers present apart from PC, 8 bit addressability, 8 bits per memory location, and stores the least significant byte at the lowest memory address (little endian). The PC increments by 4 and decodes the 4 bytes to its respective instruction. 
 
 ---
 
