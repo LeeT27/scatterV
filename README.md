@@ -45,7 +45,15 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ---
 ## Deep Dive Notes
 ### 🏗️ RISC-V Architecture
-hullo
+RISC-V is an open source instruction set architecture that is popular in IoT, embedded systems, and operating systems. Programs written in RISC-V assembly can run sequential instructions that handle fundamental operations such as artithmetic, data transfer, and control flow. Two major benefits that makes RISC-V special is its easy access to modify the instruction set and reduced complexity in hardware design. Typically, RISC-V has 32 bits per instruction, 32 general purpose registers, 8 bits per memory location, and stores the least significant byte at the lowest memory address (little endian). RV32, used for smaller embedded applications, has 32 bits per register while RV64, used for high performance computing, has 64 bits per register. ScatterV uses the RV32 architecture.
+
+RISC-V utilitizes a 5-stage instruction pipeline to improve performance when parallel computing is applied. Every instruction goes through the following stages:
+- Instruction Fetch (IF): The processor reads the instruction from memory using a program counter (PC). The selected instruction is the concatenated bytes of mem[PC], mem[PC+1], mem[PC+2], and mem[PC+3], where mem[PC] is the least significant byte and mem[PC+3] is the most significant byte. PC is then incremented by 4 for the next instruction to be fetched the cycle after.
+- Instruction Decode (ID): The fetched instruction is decoded by the control unit to determine its opcode and operands. The processor also begins to read the selected memory or register determined by the instruction
+- Execute (EX): ALU performs the operation specified by the instruction. Applies for arithmetic instructions and calculating branch logic
+- Memory Access (MEM): Memory can be read and overwritten. Applies for loading and storing instructions
+Write Back (WB): Values that are computed via ALU or loaded from memory are written into destination register
+
 ### 🎲 `RND` Instruction Implementation
 The core of ScatterV's random number generation comes from the abstract algebra theory of primitive polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating the same pattern needs to be maximized. This is where the magic of primitive polynomials comes in. A primitive polynomial is a special type of irreducible polynomial, meaning that it cannot be factored into smaller polynomials. Another property is that a primitive polynomial of degree n has $(2^{n}-1)$ unique states before repeating to its old pattern (base will be 2 for digital logic). A good analogy is that if you have a deck of 52 cards, the shuffling mechanism of a primitive polynomial would go through all 52 cards before repeating the pattern rather than a smaller pattern of cycling through the same 8 cards. Here below is an example of a primitive polynomial of degree n = 3: 
 
@@ -68,7 +76,7 @@ hullo
 ### 💡 Seven-Segment Digit Display
 Throughout the running process, a 32 bit register value is stored in binary, but needs to be shown on the FPGA peripheral as a human-readable decimal number. 
 ### 📜 RISC-V Assembly
-RISC-V is an open source instruction set architecture that is popular in IoT, embedded systems, and computing. Programs written in RISC-V assembly can run sequential instructions that handle fundamental operations such as artithmetic, data transfer, and control flow. Two major benefits that makes RISC-V special is its easy access to modify the instruction set and reduced complexity in hardware design. Typically, RISC-V has 32 bits per instruction, 32 registers present apart from PC, 8 bit addressability, 8 bits per memory location, and stores the least significant byte at the lowest memory address (little endian). The PC increments by 4 and decodes the 4 bytes to its respective instruction. 
+
 
 ---
 
