@@ -58,31 +58,35 @@ Here is an overview of all the modules used in ScatterV:
 - Program Counter (PC)
   - Inputs: clk, rst, pc_next
   - Outputs: pc_out
-  - d
+  - Holds pointer to current instruction address and increments by 4 every rising clock edge or branches/jumps based on control signals
 - Instruction Memory
   - Inputs: PC
   - Outputs: instruction
-  - d
+  - Takes current PC and outputs the 32-bit instruction at that address
 - Control Unit
   - Inputs: instruction
-  - Outputs: signals
-  - d
+  - Outputs: alu_op, alu_src, mem_read, mem_write, reg_write, mem_to_reg, branch
+  - Decodes opcode of instruction and generates the control signals that correspond with the proper instruction
 - Data Memory
   - Inputs: clk, rst, pc_next
   - Outputs: pc_out
-  - d
+  - Stores program data. Reads data during load instructions and writes data during store instructions
 - Register File
   - Inputs: read1, read2, write
   - Outputs: pc_out
   - d
 - ALU
-  - Inputs: opcode, operand1, operand2
-  - Outputs: result, zeroFlag
-  - d
+  - Inputs: alu_op, a, b
+  - Outputs: result, zero_flag
+  - The ALU takes two operands and performs an arithmetic or logical operation, decided by alu_op, and outputs a result along with a zero flag used for branch decisions
 - Immediate Generator
-  - Inputs: instruction[8:0]
-  - Outputs: output
-  - d
+  - Inputs: instruction
+  - Outputs: immediate_out
+  - The immediate generator extracts immediate values from instructions and outputs that value so it can be used for calculations
+
+Here is a diagram of the processor:
+
+
 
 ### 🎲 `RND` Instruction Implementation
 The core of ScatterV's random number generation comes from the abstract algebra theory of primitive polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating the same pattern needs to be maximized. This is where the magic of primitive polynomials comes in. A primitive polynomial is a special type of irreducible polynomial, meaning that it cannot be factored into smaller polynomials. Another property is that a primitive polynomial of degree n has $(2^{n}-1)$ unique states before repeating to its old pattern (base will be 2 for digital logic). A good analogy is that if you have a deck of 52 cards, the shuffling mechanism of a primitive polynomial would go through all 52 cards before repeating the pattern rather than a smaller pattern of cycling through the same 8 cards. Here below is an example of a primitive polynomial of degree n = 3: 
