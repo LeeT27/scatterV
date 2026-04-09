@@ -83,6 +83,10 @@ Here is an overview of all the modules used in ScatterV:
   - Inputs: instruction
   - Outputs: immediate_out
   - The immediate generator extracts immediate values from instructions and outputs that value so it can be used for calculations. Different instruction types pick different ranges of bits from the instruction, so the module selects the correct logics accordingly
+- Seven-segment Decoder
+  - Inputs: clk, rst, regs[9], regs[10]
+  - Outputs: segments_left [6:0], segments_right [6:0], 
+  - The seven-segment decoder module converts binary values from registers 9 and 10 into segment control signals to be displayed on FPGA at all times.
 
 Here is a diagram of the processor:
 
