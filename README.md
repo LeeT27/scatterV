@@ -59,7 +59,7 @@ Here is an overview of all the modules used in ScatterV:
   - Inputs: clk, rst, pc_next
   - Outputs: pc_out
   - d
-- Instruction memory
+- Instruction Memory
   - Inputs: PC
   - Outputs: instruction
   - d
@@ -67,11 +67,11 @@ Here is an overview of all the modules used in ScatterV:
   - Inputs: instruction
   - Outputs: signals
   - d
-- Data memory
+- Data Memory
   - Inputs: clk, rst, pc_next
   - Outputs: pc_out
   - d
-- Register file
+- Register File
   - Inputs: read1, read2, write
   - Outputs: pc_out
   - d
@@ -79,7 +79,7 @@ Here is an overview of all the modules used in ScatterV:
   - Inputs: opcode, operand1, operand2
   - Outputs: result, zeroFlag
   - d
-- Immediate generator
+- Immediate Generator
   - Inputs: instruction[8:0]
   - Outputs: output
   - d
