@@ -89,7 +89,8 @@ Here is an overview of all the modules used in ScatterV:
   - The seven-segment decoder module converts binary values from registers 9 and 10 into segment control signals to be displayed on FPGA at all times.
 
 Here is a diagram of the processor:
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/c4e6a2ae-6fd2-4ed3-b591-65e0ef8ad2b2" />
+
+<img width="400" src="https://github.com/user-attachments/assets/c4e6a2ae-6fd2-4ed3-b591-65e0ef8ad2b2" />
 
 
 
