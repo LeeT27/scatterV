@@ -58,31 +58,31 @@ Here is an overview of all the modules used in ScatterV:
 - Program Counter (PC)
   - Inputs: clk, rst, pc_next
   - Outputs: pc_out
-  - Holds pointer to current instruction address and increments by 4 every rising clock edge or branches/jumps based on control signals
+  - Holds pointer to current instruction address and increments by 4 on every rising clock edge, or branches/jumps to a different target based on control signals
 - Instruction Memory
-  - Inputs: PC
+  - Inputs: pc_out
   - Outputs: instruction
   - Takes current PC and outputs the 32-bit instruction at that address
 - Control Unit
-  - Inputs: instruction
+  - Inputs: opcode
   - Outputs: alu_op, alu_src, mem_read, mem_write, reg_write, mem_to_reg, branch
   - Decodes opcode of instruction and generates the control signals that correspond with the proper instruction
 - Data Memory
-  - Inputs: clk, rst, pc_next
-  - Outputs: pc_out
+  - Inputs: alu_result, write_data, mem_read, mem_write
+  - Outputs: read_data
   - Stores program data. Reads data during load instructions and writes data during store instructions
 - Register File
-  - Inputs: read1, read2, write
-  - Outputs: pc_out
-  - d
+  - Inputs: clk, rs1_addr, rs2_addr, rd_addr, rd_data, reg_write
+  - Outputs: rs1_data, rs2_data
+  - The register file contains 32 general purpose registers to store values for source and destination registers. There are two read ports to access source registers and a write port to update a destination register if reg_write is enabled
 - ALU
-  - Inputs: alu_op, a, b
-  - Outputs: result, zero_flag
+  - Inputs: alu_op, operand1, operand2
+  - Outputs: alu_result, zero_flag
   - The ALU takes two operands and performs an arithmetic or logical operation, decided by alu_op, and outputs a result along with a zero flag used for branch decisions
 - Immediate Generator
   - Inputs: instruction
   - Outputs: immediate_out
-  - The immediate generator extracts immediate values from instructions and outputs that value so it can be used for calculations
+  - The immediate generator extracts immediate values from instructions and outputs that value so it can be used for calculations. Different instruction types pick different ranges of bits from the instruction, so the module selects the correct logics accordingly
 
 Here is a diagram of the processor:
 
