@@ -36,7 +36,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 - **HDL:** SystemVerilog
 - **IDE:** Visual Studio Code
 - **FPGA Deployment software:** Xilinx Vivado (synthesis, implementation, bitstream generation)
-- **RTL Simulation:** QuestaSim
+- **RTL Simulation:** Icarus Verilog + GTKWave
 - **Demo Program:** RISC-V assembly
   
 ---
