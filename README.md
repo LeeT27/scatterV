@@ -55,6 +55,10 @@ ScatterV utilitizes a 5-stage instruction pipeline to improve performance to all
 - **Write Back (WB)**: The result values that are computed via ALU or loaded from memory are written into destination register.
 
 Here is an overview of all the modules used in ScatterV:
+- Top Module
+  - Inputs: clk, rst, switches
+  - Outputs: segments
+  - Holds all the submodules
 - **Program Counter (PC)**
   - Inputs: clk, rst, pc_next
   - Outputs: pc_out
