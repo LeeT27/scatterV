@@ -69,14 +69,14 @@ Here is an overview of all the modules used in ScatterV:
   - Takes current PC and outputs the 32-bit instruction at that address
 - **Control Unit**
   - Inputs: opcode
-  - Outputs: alu_op, alu_src, mem_read, mem_write, reg_write, branch
+  - Outputs: alu_op, alu_src, mem_read_en, mem_write_en, mem_to_reg, reg_write_en, jump_toggle
   - Decodes opcode of instruction and generates the control signals that correspond with the proper instruction
 - **Program Memory**
-  - Inputs: mem_address, alu_result, write_data, mem_read, mem_write
+  - Inputs: mem_address, alu_result, write_data, mem_read_en, mem_write_en
   - Outputs: read_data
   - Stores program data. Reads data during load instructions and writes data during store instructions
 - **Register File**
-  - Inputs: clk, rs1_addr, rs2_addr, rd_addr, rd_data, reg_write
+  - Inputs: clk, rs1_addr, rs2_addr, rd_addr, rd_data, reg_write_en
   - Outputs: rs1_data, rs2_data
   - The register file contains 32 general purpose registers to store values for source and destination registers. There are two read ports to access source registers and a write port to update a destination register if reg_write is enabled
 - **ALU**
