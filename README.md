@@ -44,7 +44,7 @@ To verify correct processor behavior, I implemented a Monte Carlo simulation wri
 ### Mathematical Principle
 The program approximates $\pi$ by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (1,1) and determining the ratio of points that fall inside the shaded quarter circle, calculated using the following circle equation:
 
-$$x^2 + y^2 \le 1
+$$x^2 + y^2 \le 1$$
 
 An internal "hits" counter is incremented everytime it lands inside and a total "samples counter" is incremented everytime, independent of where it lands. The approximation of $\pi$ is found through the ratio of points:
 
