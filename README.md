@@ -31,25 +31,16 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ---
 ## Instruction Encoding
 
-| Instruction | Opcode | `funct3` | `funct7` |
-| :--- | :---: | :---: | :---: |
-| **ADD** | 0110011 | 000 | 0000000 |
-| **SUB** | 0110011 | 000 | 0100000 |
-| **SLL** | 0110011 | 001 | 0000000 |
-| **SLT** | 0110011 | 010 | 0000000 |
-| **SLTU** | 0110011 | 011 | 0000000 |
-| **XOR** | 0110011 | 100 | 0000000 |
-| **SRL** | 0110011 | 101 | 0000000 |
-| **SRA** | 0110011 | 101 | 0100000 |
-| **OR** | 0110011 | 110 | 0000000 |
-| **AND** | 0110011 | 111 | 0000000 |
-| **ADDI** | 0010011 | 000 | N/A |
-| **LW** | 0000011 | 010 | N/A |
-| **SW** | 0100011 | 010 | N/A |
-| **BEQ** | 1100011 | 000 | N/A |
-| **LUI** | 0110111 | N/A | N/A |
-| **JAL** | 1101111 | N/A | N/A |
-| **RND** | 0001011 | N/A | N/A |
+| Instruction Format | Opcode | `funct3` / `funct7` Notes |
+| :--- | :---: | :--- |
+| **R-Type** (ADD, SUB, XOR, etc.) | `0110011` | `funct3` defines op; `funct7` distinguishes `SUB`/`SRA` |
+| **I-Type** (ADDI, JALR, etc.) | `0010011` | `funct3` defines op |
+| **Load** (LW, LH, LB) | `0000011` | `funct3` defines size |
+| **Store** (SW, SH, SB) | `0100011` | `funct3` defines size |
+| **Branch** (BEQ, BNE, etc.) | `1100011` | `funct3` defines condition |
+| **U-Type** (LUI, AUIPC) | `0110111` | N/A |
+| **J-Type** (JAL) | `1101111` | N/A |
+| **Custom** (RND) | `0001011` | N/A |
 
 ---
 
