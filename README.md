@@ -50,7 +50,7 @@ An internal "hits" counter is incremented everytime it lands inside the quarter 
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
-The ratio converges to $\pi$ as the sample # approaches ∞, 
+The ratio converges to $\pi$ as the sample size approaches ∞, 
 
   <summary>▶ <b>Click to expand FPGA Demo Video</b></summary>
   <br>
