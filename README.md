@@ -89,18 +89,18 @@ The ratio converges to π as the sample size approaches ∞,
 ---
 ## Instruction Encoding
 
-| Instruction Type | Opcode (7-bit) | Notes |
-| :--- | :--- | :--- |
-| **R-Type** | `0110011` | Register-Register Arithmetic |
-| **I-Type** | `0010011` | Immediate Arithmetic (ADDI, etc.) |
-| **Load** | `0000011` | LW, LH, LB |
-| **Store** | `0100011` | SW, SH, SB |
-| **Branch** | `1100011` | BEQ, BNE, etc. |
-| **U-Type (LUI)** | `0110111` | Load Upper Immediate |
-| **U-Type (AUIPC)** | `0010111` | Add Upper Immediate to PC |
-| **J-Type (JAL)** | `1101111` | Jump and Link |
-| **I-Type (JALR)** | `1100111` | Jump and Link Register |
-| **Custom (RND)** | `0001011` | Custom-0 |
+| Instruction Type | Opcode | funct3 | funct7 | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| **R-Type** | `0110011` | Selects ALU op | Differentiates ADD/SUB/SRA | Arithmetic (ADD, SUB, XOR, etc.) |
+| **I-Type** | `0010011` | Selects ALU op | N/A | Immediate Arithmetic (ADDI, etc.) |
+| **Load** | `0000011` | Sets data size | N/A | Defines byte/half-word/word width |
+| **Store** | `0100011` | Sets data size | N/A | Defines byte/half-word/word width |
+| **Branch** | `1100011` | Sets condition | N/A | Defines EQ/NE/LT/GE/LTU/GEU |
+| **U-Type (LUI)** | `0110111` | N/A | N/A | Load Upper Immediate |
+| **U-Type (AUIPC)** | `0010111` | N/A | N/A | Add Upper Immediate to PC |
+| **J-Type (JAL)** | `1101111` | N/A | N/A | Jump and Link |
+| **I-Type (JALR)** | `1100111` | Must be `000` | N/A | Jump and Link Register |
+| **Custom (RND)** | `0001011` | N/A | N/A | Custom-0 |
 
 ---
 
