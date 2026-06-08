@@ -12,7 +12,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 ## Parts
-I seperated the project into three major parts:
+I seperated the project into three major parts/milestones:
 1. Single cycle RISC-V and RND implementation
 2. Pipelining and hazard mitigation
 3. FPGA synthesis and demo
