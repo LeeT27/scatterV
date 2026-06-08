@@ -42,7 +42,13 @@ To verify the processor's capabilities, we implemented a Monte Carlo simulation 
 * **`RND` Instruction:** Generates pseudorandom coordinates to test the LFSR logic.
 * **Arithmetic/Logic:** Performs coordinate squaring and comparison to determine points inside the unit circle.
 * **Hardware Interface:** Uses the seven-segment display to output the calculated approximation of $\pi$ in real-time.
-<a href="https://www.youtube.com/watch?v=kfW94tNMFkA" target="_blank">![Watch the FPGA Demo Video](https://img.youtube.com/vi/kfW94tNMFkA/0.jpg)</a>
+<details>
+  <summary>▶ <b>Click to expand FPGA Demo Video</b></summary>
+  <br>
+  <a href="https://www.youtube.com/watch?v=kfW94tNMFkA">
+    <img src="https://img.youtube.com/vi/kfW94tNMFkA/0.jpg" alt="Watch the FPGA Demo Video" width="600">
+  </a>
+</details>
 
 ---
 
