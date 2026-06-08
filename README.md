@@ -39,7 +39,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ---
 ## Demo Program: Monte Carlo $\pi$ Approximation
 
-To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly. The main star of the show here is the custom `RND` instruction that creates pseudorandom coordinates continuously.
+To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly. The main star of the show in this simulation is the custom `RND` instruction that constantly creates pseudorandom coordinates.
 
 ### Mathematical Principle
 The program approximates $\pi$ by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (1,1) and determining the ratio of points that fall inside the shaded quarter circle, calculated using the following circle equation:
