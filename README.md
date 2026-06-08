@@ -50,9 +50,7 @@ Since the simulation is normalized to a unit radius ($r = 1$), the processor che
 
 $$x^2 + y^2 \le 1$$
 
-An internal "hits" counter is incremented everytime it lands inside and a total "samples counter" is incremented everytime, independent of where it lands.
-
-The approximation of $\pi$ is found through the ratio of points:
+An internal "hits" counter is incremented everytime it lands inside and a total "samples counter" is incremented everytime, independent of where it lands. The approximation of $\pi$ is found through the ratio of points:
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
