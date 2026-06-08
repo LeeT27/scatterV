@@ -26,6 +26,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 ---
 
+## Tools & Hardware
 | Category | Component / Tool | Description / Role |
 | :--- | :--- | :--- |
 | **Target Hardware** | RealDigital Boolean Board | Features a Xilinx Spartan-7 FPGA (XC7S50); utilized onboard Seven-Segment displays for I/O demo. |
@@ -86,15 +87,6 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
   
 ---
 
-## Tools & Hardware
-- **FPGA Board:** RealDigital Boolean Board (Xilinx Spartan-7 XC7S50), seven-segment displays
-- **HDL:** SystemVerilog
-- **IDE:** Visual Studio Code
-- **FPGA Deployment software:** Xilinx Vivado (synthesis, implementation, bitstream generation)
-- **RTL Simulation:** Icarus Verilog + GTKWave
-- **Demo Program:** RISC-V assembly
-  
----
 ## Demo
 
 ---
