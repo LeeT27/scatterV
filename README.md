@@ -15,6 +15,17 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
    
 ---
 
+## Features
+- **Instruction Set:** RV32I base instructions — arithmetic, logic, loads, stores, branches, and jumps
+- **Custom `RND` instruction:** Generates a pseudorandom number generation every clock cycle with 32-bit LSFR
+- **Pipelined Architecture:** Multi stage execution for maximum clock speeds
+- **Hazard Protection:** Hazard protection using forwarding, stalling, branch prediction, and seperate memory
+- **FPGA Deployment:** Deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
+- **Display Output:** Seven-segment display shows decimal numbers directly from the processor  
+- **Demo:** Assembly program that utilizes counters and `RND` for FPGA demo  
+
+---
+
 ## Instruction Set Architecture
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/0081d60a-b194-4487-b2cc-d86e161800de" />
 
@@ -61,19 +72,9 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 
 * **wb_sel:** `00`=ALU, `01`=DataMem, `10`=PC+4, `11`=Immediate.
 * **pc_sel:** `00`=PC+4, `01`=JAL, `10`=Branch, `11`=JALR.
-
+  
 ---
 
-## Features
-- **Instruction Set:** RV32I base instructions — arithmetic, logic, loads, stores, branches, and jumps — plus a custom `RND` instruction for pseudorandom number generation every clock cycle  
-- **Assembly Compatibility:** Runs standard RISC-V assembly programs with full compatibility
-- **Pipelining**: Completes each instruction in steps rather than all at once
-- **Hazard Protection:** Hazard protection using forwarding and stalling  
-- **FPGA Deployment:** Deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
-- **Display Output:** Seven-segment display shows decimal numbers directly from the processor  
-- **Demo Program:** Assembly program that utilizes counters and `RND` for FPGA demo  
-
----
 ## Tools & Hardware
 - **FPGA Board:** RealDigital Boolean Board (Xilinx Spartan-7 XC7S50), seven-segment displays
 - **HDL:** SystemVerilog
