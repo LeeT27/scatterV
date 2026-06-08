@@ -81,8 +81,8 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 | **JALR** | XX | 1 | 0 | 0 | 1 | 10 | 11 |
 | **RND** | 11 | X | 0 | 0 | 1 | 00 | 00 |
 
-* **wb_sel:** `00`=ALU, `01`=DataMem, `10`=PC+4, `11`=Immediate.
-* **pc_sel:** `00`=PC+4, `01`=JAL, `10`=Branch, `11`=JALR.
+* **wb_sel:** `00` = ALU, `01` = DataMem, `10` = PC+4, `11` = Immediate.
+* **pc_sel:** `00` = PC+4, `01` = JAL, `10` = Branch, `11` = JALR.
   
 ---
 
