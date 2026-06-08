@@ -49,7 +49,7 @@ $$x^2 + y^2 \le 1$$
 <div align="center">
   <img src="https://github.com/user-attachments/assets/855c08f7-7e33-4f49-b01e-93e95c569be3" width="200px" alt="Monte Carlo">
 </div>
-
+<br><br>
 An internal "hits" counter is incremented everytime it lands inside the quarter circle and a total "samples counter" is incremented everytime, independent of where it lands. The approximation of $\pi$ is found through the ratio of points:
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
