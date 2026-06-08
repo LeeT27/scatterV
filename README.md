@@ -54,7 +54,7 @@ An internal "hits" counter is incremented everytime it lands inside the quarter 
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
-The ratio converges to $\pi$ as the sample size approaches ∞, 
+The ratio converges to π as the sample size approaches ∞, 
 
 [https://img.youtube.com/vi/kfW94tNMFkA/0.jpg](https://upload.wikimedia.org/wikipedia/commons/0/0b/RedDot_Burger.jpg)
 
