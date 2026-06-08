@@ -42,7 +42,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly
 
 ### Mathematical Principle
-The program approximates $\pi$ by generating random coordinate points $(x, y)$ within a square area and determining the ratio of points that fall inside the shaded quarter circle, calculated using following circle equation:
+The program approximates $\pi$ by generating random coordinate points $(x, y)$ within a square area and determining the ratio of points that fall inside the shaded quarter circle, calculated using the following circle equation:
 
 $$x^2 + y^2 \le r^2$$
 
