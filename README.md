@@ -9,7 +9,13 @@ March 31, 2026
 ScatterV is a custom RISC-V processor implemented in SystemVerilog and synthesized on FPGA. It features standard functionality of a RISC-V processor and includes a custom instruction, `RND`, which loads a pseudorandom number into a register using a linear feedback shift register (LFSR) to produce maximal-length sequences. Hardware level random number generation sets the foundation for applications such as cryptography, simulations, and randomized algorithms.
 
 This repository builds upon my previous work, [learningVerilog](https://github.com/LeeT27/learningVerilog), where I created a simple processor to execute basic ALU, loads, stores, and jumps. ScatterV expands beyond this by achieving RISC-V compatibility, integrating new complex instructions, and utilizing industry-standard verification tools during the debugging process. Each of the goals outlined below is linked to a detailed deep dive writeup, providing visuals, code examples, and explanations that show how these objectives were achieved.
-
+---
+## Parts
+I seperated the project into three major parts:
+1. Single cycle RISC-V and RND implementation
+2. Pipelining and hazard mitigation
+3. FPGA synthesis and demo
+   
 ---
 ## Goals
 1. Understand the architecture of a RISC-V processor ([Learn more](#risc-v-architecture))
