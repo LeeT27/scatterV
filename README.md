@@ -54,6 +54,8 @@ An internal "hits" counter is incremented everytime it lands inside and a total 
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
+The ratio converges to $\pi$ as the sample # approaches ∞, 
+
 ### Implementation Details
 * **`RND` Instruction:** Generates pseudorandom $x$ and $y$ coordinates on every clock cycle, thoroughly validating the hardware execution of the custom LFSR peripheral.
 * **Arithmetic Pipeline:** Performs fast coordinate squaring, addition, and conditional branching to determine point placement without stalling the pipeline.
