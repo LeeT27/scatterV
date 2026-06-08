@@ -37,6 +37,13 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 | **Verification Software** | RISC-V Assembly | Created a custom demo assembly code that approximates closer to pi every second using a Monte Carlo plotting simulation. |
 
 ---
+## Demo Program: Monte Carlo $\pi$ Approximation
+To verify the processor's capabilities, we implemented a Monte Carlo simulation in assembly. The program utilizes:
+* **`RND` Instruction:** Generates pseudorandom coordinates to test the LFSR logic.
+* **Arithmetic/Logic:** Performs coordinate squaring and comparison to determine points inside the unit circle.
+* **Hardware Interface:** Uses the seven-segment display to output the calculated approximation of $\pi$ in real-time.
+[![Watch the video](https://upload.wikimedia.org/wikipedia/commons/0/0b/RedDot_Burger.jpg))](https://www.youtube.com/watch?v=kfW94tNMFkA)
+---
 
 ## Instruction Set Architecture
 | Category | Instructions |
