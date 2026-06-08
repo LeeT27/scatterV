@@ -21,11 +21,9 @@ I seperated the project into three major parts:
 ## Goals
 1. Understand the architecture of a RISC-V processor ([Learn more](#risc-v-architecture))
 2. Apply the math theory behind hardware random number generation to create custom instructions ([Learn more](#rnd-instruction-implementation))
-3. Understand the effects of pipeline hazards and how they can be mitigated ([Learn more](#pipeline-hazards))
-4. Build familiarity with Questasim simulation ([Learn more](#rtl-verification))
-5. Learn the full FPGA toolchain flow (synthesis, implementation, bitstream generation) with Vivado ([Learn more](#fpga-synthesis))
-6. Learn to interface with FPGA peripherals like digit displays ([Learn more](#digit-display))
-7. Learn RISC-V assembly syntax to compile programs for processor ([Learn more](#risc-v-assembly))
+3. Know the benefits of pipelining a processor and how to mitigate hazards
+4. Learn the full FPGA toolchain flow (synthesis, implementation, bitstream generation) with Vivado ([Learn more](#fpga-synthesis))
+5. Create a RISC-V demo program to simulate the pipelined processor ([Learn more](#risc-v-assembly))
 
 ---
 
