@@ -39,24 +39,19 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ---
 ## Demo Program: Monte Carlo $\pi$ Approximation
 
-To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly
+To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly. The main star of the show here is the custom `RND` instruction that creates pseudorandom coordinates continuously.
 
 ### Mathematical Principle
 The program approximates $\pi$ by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (1,1) and determining the ratio of points that fall inside the shaded quarter circle, calculated using the following circle equation:
 
 $$x^2 + y^2 \le 1$$
 
-An internal "hits" counter is incremented everytime it lands inside and a total "samples counter" is incremented everytime, independent of where it lands. The approximation of $\pi$ is found through the ratio of points:
+An internal "hits" counter is incremented everytime it lands inside the quarter circle and a total "samples counter" is incremented everytime, independent of where it lands. The approximation of $\pi$ is found through the ratio of points:
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
 The ratio converges to $\pi$ as the sample # approaches ∞, 
 
-### Implementation Details
-* **`RND` Instruction:** Generates pseudorandom $x$ and $y$ coordinates on every clock cycle, thoroughly validating the hardware execution of the custom LFSR peripheral.
-* **Arithmetic Pipeline:** Performs fast coordinate squaring, addition, and conditional branching to determine point placement without stalling the pipeline.
-* **Real-Time Convergence:** Because the processor executes thousands of samples per second, **the approximation gets visibly more accurate every second.** As the sample size ($N$) grows over time, the statistical error decreases proportional to $1/\sqrt{N}$. The seven-segment display dynamically updates in real-time, showing the output shifting from a rough estimate to a highly stable, accurate convergence toward $3.1415$.
-<details>
   <summary>▶ <b>Click to expand FPGA Demo Video</b></summary>
   <br>
   <a href="https://www.youtube.com/watch?v=kfW94tNMFkA">
