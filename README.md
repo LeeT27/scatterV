@@ -55,6 +55,20 @@ The ratio converges to $\pi$ as the sample size approaches ∞,
 [https://img.youtube.com/vi/kfW94tNMFkA/0.jpg](https://upload.wikimedia.org/wikipedia/commons/0/0b/RedDot_Burger.jpg)
 
 ---
+## Architecture Overview
+
+| Module Name | Key Functionality |
+| :--- | :--- |
+| `top_module` | Container for all modules that handles routing and signal selection. |
+| `program_counter` | Manages the current instruction address. |
+| `instruction_memory`| Pre-loaded executable test program. |
+| `control_unit` | Parse opcode and generate control signals. |
+| `immediate_generator`| Formats and extends immediate values depending on instruction. |
+| `register_file` | 32-entry register bank with synchronous writes and asynchronous reads. |
+| `alu` | Performs arithmetic, logic, shifts and RNG. |
+| `program_memory` | 4 kilobyte RAM supporting `lb`, `lh`, `lw`, `sb`, `sh`, and `sw` operations. |
+
+---
 
 ## Instruction Set Architecture
 | Category | Instructions |
