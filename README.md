@@ -18,21 +18,14 @@ I seperated the project into three major parts/milestones:
 3. FPGA synthesis and demo
    
 ---
-## Goals
-1. Understand the architecture of a RISC-V processor ([Learn more](#risc-v-architecture))
-2. Apply the math theory behind hardware random number generation to create custom instructions ([Learn more](#rnd-instruction-implementation))
-3. Know the benefits of pipelining a processor and how to mitigate hazards
-4. Learn the full FPGA toolchain flow (synthesis, implementation, bitstream generation) with Vivado ([Learn more](#fpga-synthesis))
-5. Create a RISC-V demo program to simulate the pipelined processor ([Learn more](#risc-v-assembly))
-
----
 
 ## Features
 - **Instruction Set:** RV32I base instructions — arithmetic, logic, loads, stores, branches, and jumps — plus a custom `RND` instruction for pseudorandom number generation every clock cycle  
-- **Assembly Compatibility:** Runs standard RISC-V assembly programs with full compatibility  
-- **FPGA Deployment:** Easily deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
+- **Assembly Compatibility:** Runs standard RISC-V assembly programs with full compatibility
+- **Pipelining**: Completes each instruction in steps rather than all at once
+- **Hazard Protection:** Hazard protection using forwarding and stalling  
+- **FPGA Deployment:** Deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
 - **Display Output:** Seven-segment display shows decimal numbers directly from the processor  
-- **Pipeline Protection:** Hazard protection using forwarding and stalling  
 - **Demo Program:** Assembly program that utilizes counters and `RND` for FPGA demo  
 
 ---
