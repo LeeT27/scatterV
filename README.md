@@ -33,7 +33,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 | **Hardware Description Language** | SystemVerilog | Used to model the pipelined RISC-V core. |
 | **Development Environment** | Visual Studio Code | Primary IDE used for writing SystemVerilog. |
 | **Synthesis & Deployment** | Xilinx Vivado | Handled synthesis, implementation, and bitstream generation for the FPGA. |
-| **Simulation & Verification** | Icarus Verilog + GTKWave | Used for compiling RTL and analyzing waveform outputs to verify logic. |
+| **Simulation & Verification** | EDAPlayground | Used for compiling RTL and analyzing waveform outputs to verify logic. |
 | **Demo** | RISC-V Assembly | Created a custom demo assembly code that approximates closer to pi every second using a Monte Carlo plotting simulation. |
 
 ---
@@ -133,7 +133,7 @@ Since RISC-V registers are 32 bits, a primitive polynomial of degree n = 32 will
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/8ebdb6de-3e92-4ba9-a2ea-fe4ef09c40d3" />
 
 ### Part 1 Reflection
-When designing ScatterV, I didn't realize how big of a jump going from my old CPU to RISC-V was. The new instruction types such as branching, upper intermediates, and new jumps quickly felt overwhelming. Figuring out the new multiplexers for control signals and operands was frustrating. Specifically, it was difficult designing wb_sel and pc_sel since the upper intermediate (AUIPC/LUI) and subroutine call instructions (JAL) demanded more signals to satisfy their cases. Another frustrating moment was how only two R-type instructions require func7[5] to be 1, which are SUB and SRA, in which I had to disable func7 when its not an R-type instruction. For example, if I didn't disable func7 for I-type, using ADDI where bit 30 is 1 would cause unintentional subtraction when I meant to use the immediate range with bit 30 in it. One more frustrating challenge in this part was adding half word and single byte load/store instructions because of having to manage offsets if the memory address isn't a factor of 4, since the RAM is an array of words, not bytes.
+When designing ScatterV, I didn't realize how big of a jump going from my old CPU to RISC-V was. The new instruction types such as branching, upper intermediates, and new jumps quickly felt overwhelming. Figuring out the new multiplexers for control signals and operands was frustrating. Specifically, it was difficult designing wb_sel and pc_sel since the upper intermediate (AUIPC/LUI) and subroutine call instructions (JAL) demanded more signals to satisfy their cases. Another frustrating moment was how only two R-type instructions require func7[5] to be 1, which are SUB and SRA, in which I had to disable func7 when its not an R-type instruction. For example, if I didn't disable func7 for I-type, using ADDI where bit 30 is 1 would cause unintentional subtraction when I meant to use the immediate range with bit 30 in it. One more frustrating challenge in this part was adding half word and single byte load/store instructions because of having to manage offsets if the memory address isn't a factor of 4, since the RAM is an array of words, not bytes. One thing that definitely helped overall was working on the top module and control unit first as they gave me better visualization of how the signals should interact in the leftover modules. Constantly testing module functionality in EDAPlayground also allowed me to deduct bugs toward certain modules.
 
 ## Part 2: Pipeline architecture and hazard mitigation
 
