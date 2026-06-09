@@ -74,33 +74,20 @@ The ratio converges to π as the sample size approaches ∞,
 
 ---
 
-## Instruction Set Architecture
-| Category | Instructions |
-| :--- | :--- |
-| **R-Type** | `ADD`, `SUB`, `SLL`, `SLT`, `SLTU`, `XOR`, `SRL`, `SRA`, `OR`, `AND` |
-| **I-Type** | `ADDI`, `SLTI`, `SLTIU`, `XORI`, `ORI`, `ANDI`, `SLLI`, `SRLI`, `SRAI`, `LB`, `LH`, `LW`, `JALR` |
-| **S-Type** | `SB`, `SH`, `SW` |
-| **B-Type** | `BEQ`, `BNE`, `BLT`, `BGE`, `BLTU`, `BGEU` |
-| **U-Type** | `LUI`, `AUIPC` |
-| **J-Type** | `JAL` |
-| **Custom** | `RND` |
+### Instruction Set Architecture
+| Instruction Type | Instructions | Opcode | funct3 | funct7 |
+| :--- | :--- | :--- | :--- | :--- |
+| **R-Type** | ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SRA, OR, AND | `0110011` | Selects ALU op | Differentiates ADD/SUB/SRA |
+| **I-Type** | ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI | `0010011` | Selects ALU op | SRAI uses for shift amount |
+| **Load** | LB, LH, LW | `0000011` | Sets data size | N/A |
+| **Store** | SB, SH, SW | `0100011` | Sets data size | N/A |
+| **Branch** | BEQ, BNE, BLT, BGE, BLTU, BGEU | `1100011` | Sets condition | N/A |
+| **U-Type** | LUI | `0110111` | N/A | N/A |
+| **U-Type** | AUIPC | `0010111` | N/A | N/A |
+| **J-Type** | JAL | `1101111` | N/A | N/A |
+| **I-Type** | JALR | `1100111` | `000` | N/A |
+| **Custom** | RND | `0001011` | N/A | N/A |
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/0081d60a-b194-4487-b2cc-d86e161800de" />
-
----
-## Instruction Encoding
-
-| Instruction Type | Opcode | funct3 | funct7 |
-| :--- | :--- | :--- | :--- |
-| **R-Type** | `0110011` | Selects ALU op | Differentiates ADD/SUB/SRA |
-| **I-Type (Arith)** | `0010011` | Selects ALU op | SRAI uses this for shift amount |
-| **Load** | `0000011` | Sets data size | N/A |
-| **Store** | `0100011` | Sets data size | N/A |
-| **Branch** | `1100011` | Sets condition | N/A |
-| **U-Type (LUI)** | `0110111` | N/A | N/A |
-| **U-Type (AUIPC)** | `0010111` | N/A | N/A |
-| **J-Type (JAL)** | `1101111` | N/A | N/A |
-| **I-Type (JALR)** | `1100111` | Must be `000` | N/A |
-| **Custom (RND)** | `0001011` | N/A | N/A |
 
 ---
 
