@@ -130,7 +130,7 @@ To implement this theory into ScatterV, I used an LFSR to utilize primitive poly
 <img src="https://github.com/user-attachments/assets/dcd47c8c-e1f9-4fc6-b67e-e26096d311a7" width="400">
 
 Since RISC-V registers are 32 bits, a primitive polynomial of degree n = 32 will be used to produce 4,294,967,295 unique combinations! 
-```
+```systemverilog
 //Custom 32-bit Random Number Generator
     logic [31:0] lfsr_reg;
     logic        feedback_bit; //Gets fed into LSB
@@ -143,7 +143,7 @@ Since RISC-V registers are 32 bits, a primitive polynomial of degree n = 32 will
             lfsr_reg <= {lfsr_reg[30:0], feedback_bit}; // Drops bit 31, shifts everything left, places feedback in bit 0
         end
     end
-    ```
+```
 ### Testing
 Here is a program that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
 
