@@ -133,7 +133,18 @@ Since RISC-V registers are 32 bits, a primitive polynomial of degree n = 32 will
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/8ebdb6de-3e92-4ba9-a2ea-fe4ef09c40d3" />
 ### Testing
 Here is a program that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/a069a917-0ace-43a1-8307-c3306bf6266b" />
+
+```systemverilog
+initial begin
+    mem[0] = 32'h00100093; // addi x1, x0, 1  (x1 = 1)
+    mem[1] = 32'h00100113; // addi x2, x0, 1  (x2 = 1)
+    mem[2] = 32'h002081B3; // add/ add x3, x1, x2 (rd = 5'b00011)
+    mem[3] = 32'h0000006F; // j done (jump to current PC forever)
+    for (int i = 4; i < 64; i++) begin
+        mem[i] = 32'h00000013; // NOP (addi x0, x0, 0)
+    end
+end
+```
 
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/22387364-5652-4ba4-980d-d7fb6f12d4c1" />
 
