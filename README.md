@@ -93,10 +93,9 @@ The ratio converges to π as the sample size approaches ∞,
   <img width="700" alt="image" src="https://github.com/user-attachments/assets/0081d60a-b194-4487-b2cc-d86e161800de" />
 </div>
 
-RND:
-| Instruction Formats | 31 | 30 | 29 | 28 | 27 | 26 | 25 | 24 | 23 | 22 | 21 | 20 | 19 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **RND (Random)** | <td colspan=7 align=center>funct7 (custom)</td> | <td colspan=5 align=center>Unused / Seed</td> | <td colspan=5 align=center>Unused</td> | <td colspan=3 align=center>funct3</td> | <td colspan=5 align=center>rd (dest)</td> | <td colspan=7 align=center>opcode (custom)</td> |
+| Instruction Format | Bits 31:12 (20 bits) | Bits 11:7 (5 bits) | Bits 6:0 (7 bits) |
+| :--- | :---: | :---: | :---: |
+| **RND (Random)** | Unused | rd | opcode |
 
 ---
 
