@@ -90,10 +90,8 @@ The ratio converges to π as the sample size approaches ∞,
 
 <br><br>
 <div align="center">
-  <img width="900" alt="image" src="https://github.com/user-attachments/assets/0081d60a-b194-4487-b2cc-d86e161800de" />
+  <img width="1000" alt="image" src="https://github.com/user-attachments/assets/0081d60a-b194-4487-b2cc-d86e161800de" />
 </div>
-
-RND:
 | Instruction Format | Bits 31:12 (20 bits) | Bits 11:7 (5 bits) | Bits 6:0 (7 bits) |
 | :--- | :---: | :---: | :---: |
 | **RND (Random)** | Unused | rd | opcode |
