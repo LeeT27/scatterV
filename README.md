@@ -90,7 +90,7 @@ The ratio converges to π as the sample size approaches ∞,
 
 <br><br>
 <div align="center">
-  <img width="700" alt="image" src="https://github.com/user-attachments/assets/0081d60a-b194-4487-b2cc-d86e161800de" />
+  <img width="900" alt="image" src="https://github.com/user-attachments/assets/0081d60a-b194-4487-b2cc-d86e161800de" />
 </div>
 
 RND:
