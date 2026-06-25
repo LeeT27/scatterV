@@ -207,12 +207,12 @@ While it is true that pipelining requires slightly more clock cycles due to the 
 
 I used 4 groups of hardware registers to transfer data between the 5 stages directly using synchronized `always_ff` blocks in `top_module`:
 
-#### 1. IF/ID Boundary Register (Fetch → Decode)
+#### 1. IF/ID
 Captures the raw state of the fetched instruction. Because the control logic has not parsed the instruction yet, no control signals exist at this boundary.
 * **Datapath Transferred:** * `if_id_pc [32 bits]`: The address of the current instruction (critical for downstream branch/jump target calculations).
   * `if_id_instruction [32 bits]`: The raw machine code bytes pulled from instruction memory.
 
-#### 2. ID/EX Boundary Register (Decode → Execute)
+#### 2. ID/EX
 The heaviest register boundary in the core. Once the Decode stage takes a frozen snapshot of `if_id_instruction`, it parses the bits and reads the register file. The raw 32-bit instruction word is then dropped, and only the required fragments and control flags are staged forward.
 * **Datapath Transferred:** * `id_ex_pc [32 bits]`: Carried forward for branch offsets.
   * `id_ex_rs1_data` / `id_ex_rs2_data [32 bits each]`: Main register source operands.
@@ -221,7 +221,7 @@ The heaviest register boundary in the core. Once the Decode stage takes a frozen
   * `id_ex_rd [5 bits]`: Destination register address tracking tag.
 * **Control Path Transferred (`id_ex_control` struct):** `alu_op`, `alu_src`, `rnd_sel` (custom LFSR sampling enable), `mem_read`, `mem_write`, `reg_write`, and `wb_sel`.
 
-#### 3. EX/MEM Boundary Register (Execute → Memory)
+#### 3. EX/MEM
 The math is completed in this stage. Source operand data, immediates, and source register addresses are safely discarded. The destination tag (`rd`) continues its journey.
 * **Datapath Transferred:**
   * `ex_mem_alu_result [32 bits]`: The core arithmetic output (or the freshly sampled `lfsr_reg` pattern if the custom `RND` instruction was executed). For loads and stores, this acts as the RAM address vector.
@@ -229,13 +229,31 @@ The math is completed in this stage. Source operand data, immediates, and source
   * `ex_mem_rd [5 bits]`: Destination register address tracking tag.
 * **Control Path Transferred (`ex_mem_control` struct):** `mem_read`, `mem_write`, `reg_write`, and `wb_sel`.
 
-#### 4. MEM/WB Boundary Register (Memory → Write-Back)
-The final staging barrier. It holds the competing data sources right at the input doors of the register file until the next clock edge arrives.
-* **Datapath Transferred:**
-  * `mem_wb_alu_result [32 bits]`: The computed ALU or custom random number payload.
-  * `mem_wb_mem_data [32 bits]`: The data payload read straight out of the 4 KB RAM (valid during a load instruction).
-  * `mem_wb_rd [5 bits]`: The destination tracking tag, finally arriving at its final destination.
-* **Control Path Transferred (`mem_wb_control` struct):** `reg_write` (the master register file write-enable switch) and `wb_sel`.
+#### 1. IF/ID
+* `if_id_pc`
+* `if_id_instruction`
+
+#### 2. ID/EX
+* `id_ex_pc`
+* `id_ex_rs1_data`
+* `id_ex_rs2_data`
+* `id_ex_imm`
+* `id_ex_rs1`
+* `id_ex_rs2`
+* `id_ex_rd`
+* `id_ex_control`: `alu_src`, `alu_op`, `rnd_sel`, `mem_read`, `mem_write`, `reg_write`, and `wb_sel`.
+
+#### 3. EX/MEM
+* `ex_mem_alu_result`
+* `ex_mem_rs2_data`
+* `ex_mem_rd`
+* `ex_mem_control`: `mem_read`, `mem_write`, `reg_write`, and `wb_sel`.
+
+#### 4. MEM/WB
+* `mem_wb_alu_result`
+* `mem_wb_mem_data`
+* `mem_wb_rd`
+* `mem_wb_control`: `reg_write` and `wb_sel`.
 
 ---
 
