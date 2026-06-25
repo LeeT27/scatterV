@@ -182,7 +182,7 @@ end
 ```
 
 ### Part 1 Reflection Notes
-- Felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper intermediates, and JALR
+- It felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper intermediates, and JALR
 - Starting with the top module and control unit first helped me visualize the I/O of the other modules easily
 - New instruction types meant a lot more multiplexers in the top module to select next pc, writeback, operands, and more depending on the control signals
 - A lot of new control signals seemed difficult to track and sometimes a whole new signal was needed for a single instruction
