@@ -203,7 +203,7 @@ Here is a good visual that helped me understand the flow of instructions using s
 
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/e86e4c30-aaab-4ef0-98cd-d5abffc16312" />
 
-While pipelining has a slight latency when filling and emptying the pipeline, the shorter worst case propagation delay much longer allows for a much higher maximum operating frequency, running programs more efficiently
+While pipelining has a slight latency when filling and emptying the pipeline, the minimized worst case propagation delay allows for a much higher maximum operating frequency, running programs more efficiently
 
 ### Pipeline Registers
 I replaced old registers with 4 new groups of hardware registers to transfer data between the 5 stages directly using synchronized `always_ff` blocks in `top_module`:
