@@ -191,7 +191,7 @@ end
 - What helped me to debug these was working was constantly using EDAPlayground and appending register signals to test each individual instructions and making sure the correct control signals and multiplexer results had correct behaviour
 
 ## Part 2: Pipeline architecture and hazard mitigation
-This portion of the project is about pipelining my functional single cycle RISC-V core in order to increase the maximum clock speed. A major issue with my first processor a year back was not only that it was a single cycle, where each instruction needed to complete the 5 stages before the next instruction but also that heavy instructions such as `MULT` and `DIV` made the worst case propogation delay much longer. I pipelined scatterV using the following 5-stage RISC-V pipeline model to minimize the worst case propogation delay:
+This portion of the project is about pipelining my functional single cycle RISC-V core in order to increase the maximum clock speed. A major issue with my first processor a year back was not only that it was a single cycle, where each instruction needed to complete the 5 stages before the next instruction but also that heavy instructions such as `MULT` and `DIV` made the worst case propagation delay much longer. I pipelined scatterV using the following 5-stage RISC-V pipeline model to minimize the worst case propagation delay:
 
 1. **Instruction Fetch (IF):** Fetches the instruction from `instruction_memory` based on the current PC value
 2. **Instruction Decode (ID):** Decodes the fetched instruction to set control signals and multiplexer selection
@@ -203,7 +203,7 @@ Here is a good visual that helped me understand the flow of instructions using s
 
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/e86e4c30-aaab-4ef0-98cd-d5abffc16312" />
 
-While it is true that pipelining requires slightly more clock cycles due to the filling and emptying of the pipeline, the quicker clock speed overrides and runs long programs more efficiently
+While pipelining has a slight latency when filling and emptying the pipeline, the shorter worst case propagation delay much longer allows for a much higher maximum operating frequency, running programs more efficiently
 
 ### Pipeline Registers
 I replaced old registers with 4 new groups of hardware registers to transfer data between the 5 stages directly using synchronized `always_ff` blocks in `top_module`:
@@ -235,9 +235,9 @@ I replaced old registers with 4 new groups of hardware registers to transfer dat
 * `mem_wb_control`: `reg_write` and `wb_sel`.
 
 ### Control Signal Optimization
-In the pipelined model, I made single value to represent all the control signals rather than a bunch of individual wires so that I could easily pass one value between pipeline register groups and then manually select bits to be passed per stage
+In the pipelined model, I made single bit-vector value to represent all the control signals rather than a bunch of individual wires so that I could easily pass one value between pipeline register groups and then manually select bits to be passed per stage
 
-### Data Hazard
+### Data Hazards
 
 ---
 
