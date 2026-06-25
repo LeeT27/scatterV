@@ -191,7 +191,7 @@ end
 - What helped me to debug these was working was constantly using EDAPlayground and appending register signals to test each individual instructions and making sure the correct control signals and multiplexer results had correct behaviour
 
 ## Part 2: Pipeline architecture and hazard mitigation
-This portion of the project is about pipelining my functional single cycle RISC-V core in order to increase the maximum clock speed. A major issue with my first processor a year back was not only that it was a single cycle, where each instruction needed to complete the 5 stages before the next instruction but also that heavy instructions such as `MULT` and `DIV` made the worst case propogation delay much longer. I pipelined scatterV using the following 5-stage RISC-V pipeline model to minimize the worst propogation delay:
+This portion of the project is about pipelining my functional single cycle RISC-V core in order to increase the maximum clock speed. A major issue with my first processor a year back was not only that it was a single cycle, where each instruction needed to complete the 5 stages before the next instruction but also that heavy instructions such as `MULT` and `DIV` made the worst case propogation delay much longer. I pipelined scatterV using the following 5-stage RISC-V pipeline model to minimize the worst case propogation delay:
 
 1. **Instruction Fetch (IF):** Fetches the instruction from `instruction_memory` based on the current PC value
 2. **Instruction Decode (ID):** Decodes the fetched instruction to set control signals and multiplexer selection for its proper instruction
