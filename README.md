@@ -63,14 +63,14 @@ The ratio converges to π as the sample size approaches ∞,
 
 | Module Name | Key Functionality |
 | :--- | :--- |
-| `top_module` | Contains all sub-modules, handling routing and signal selection. |
-| `program_counter` | Manages the current instruction address. |
-| `instruction_memory`| Stores pre-loaded executable test program. |
-| `control_unit` | Parses opcode and generate control signals. |
-| `immediate_generator`| Formats and extends immediate values depending on instruction. |
-| `register_file` | Holds 32 registers bank with synchronous writes and asynchronous reads. |
-| `alu` | Performs arithmetic, logic, shifts and RNG. |
-| `program_memory` | Contains 4 kb RAM supporting `lb`, `lh`, `lw`, `sb`, `sh`, and `sw` operations. |
+| `top_module` | Contains all sub-modules, multiplexing, and pipelining logic |
+| `program_counter` | Manages the current instruction address |
+| `instruction_memory`| Stores pre-loaded executable test program |
+| `control_unit` | Parses opcode and generate control signals |
+| `immediate_generator`| Formats and extends immediate values depending on instruction |
+| `register_file` | Holds 32 registers bank with synchronous writes and asynchronous reads |
+| `alu` | Performs arithmetic, logic, shifts and RNG |
+| `program_memory` | Contains 4 kb RAM supporting `lb`, `lh`, `lw`, `sb`, `sh`, and `sw` operations |
 
 ---
 
