@@ -242,7 +242,7 @@ In the pipelined model, I made single bit-vector value to represent all the cont
 | **Signal Name** | `reg_write` | `wb_sel` | `mem_write` | `mem_read` | `rnd_sel` | `alu_op` |
 
 ### Data Hazards
-When pipelining the processesor, overlapping the execution of multiple instructions at once introduces data, structural, and control hazards that cause unexpected behaviour. Here are all the hazards I mitigated:
+When pipelining the processesor, overlapping the execution of multiple instructions at once introduces data, control, and structural hazards that cause unexpected behaviour. Here are all the hazards I mitigated:
 
 ### 🔴 EX-to-EX Forwarding (Data Hazard)
 * **The Hazard:** An instruction in the **Execute (EX)** stage requires an operand calculated by the immediate preceding instruction, which is currently sitting in the **Memory (MEM)** stage and has not yet been committed to the register file.
