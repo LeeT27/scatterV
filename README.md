@@ -78,7 +78,7 @@ The ratio converges to π as the sample size approaches ∞,
 | Instruction Type | Instructions | Opcode | funct3 | funct7 |
 | :--- | :--- | :--- | :--- | :--- |
 | **R-Type** | ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SRA, OR, AND | `0110011` | Selects ALU op | Differentiates SUB/SRA |
-| **I-Type** | ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI | `0010011` | Selects ALU op | N/A |
+| **I-Type** | ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI | `0010011` | Selects ALU op | Differentiates SRAI |
 | **Load** | LB, LH, LW | `0000011` | Sets data size | N/A |
 | **Store** | SB, SH, SW | `0100011` | Sets data size | N/A |
 | **Branch** | BEQ, BNE, BLT, BGE, BLTU, BGEU | `1100011` | Sets condition | N/A |
