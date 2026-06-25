@@ -200,7 +200,10 @@ This portion of the project is about pipelining my functional single cycle RISC-
 5. **Write Back (WB):** Writes the final result, selected by wb_sel, into the destination register (`rd`).
 
 Here is a good visual that helped me understand the flow of instructions using single-cycle vs pipelining:
+
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/e86e4c30-aaab-4ef0-98cd-d5abffc16312" />
+
+While it is true that pipelining requires slightly more clock cycles due to the filling and emptying of the pipeline, the quicker clock speed overrides and runs long programs more efficiently
 
 ## Part 3: Hardware synthesis and FPGA demo
 
