@@ -312,7 +312,7 @@ When pipelining the processesor, overlapping the execution of multiple instructi
 **Forwarding unit:** For each `ID_EX` operand, check:
 1. `ex_mem_reg_write == 1` (Writeback instructions only)
 2. `ex_mem_rd != 0` (`NOP` or `x0` targets don't need forwarding)
-3. `(ex_mem_rd == id_ex_rs1)||(ex_mem_rd == id_ex_rs2)` (The destination register must match a source register)
+3. `(ex_mem_rd == id_ex_rs1)' or '(ex_mem_rd == id_ex_rs2)` (The destination register must match a source register)
 If all 3 of these conditions are satisfied for an operand, `ex_mem_rd' is routed into ALU input, corresponding to the operand with the matched address. Forwarding rather than stalling allows the processor to perform more efficiently
 
 ### 🟡 MEM-to-EX Data
@@ -327,6 +327,7 @@ If all 3 of these conditions are satisfied for an operand, `mem_wb_rd' is routed
 
 **Stalling unit:** check:
 1. `id_ex_mem_read == 1`
+2. `(mem_wb_rd == id_ex_rs1)||mem_wb_rd == id_ex_rs2)`
 
 
 ### 🟢 Control
