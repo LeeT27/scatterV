@@ -283,22 +283,22 @@ When pipelining the processesor, overlapping the execution of multiple instructi
 ### 🔴 EX-to-EX Data
 * **The Hazard:** An instruction in the **EX** stage requires an operand calculated by the immediate preceding instruction, which is currently sitting in the **MEM** stage and hasn't been written back yet.
 * **Solution:** Forwarding unit
-* **Forwarding unit:** For each `ID_EX` operand, check:
-* 1. `ex_mem_reg_write == 1` (Writeback instructions only)
-* 2. `ex_mem_rd != 0` (`NOP` or `x0` targets don't need forwarding)
-* 3. `(ex_mem_rd == id_ex_rs1)||(ex_mem_rd == id_ex_rs2)` (The destination register must match a source register)
-* If all 3 of these conditions are satisfied for an operand, `ex_mem_rd' is routed into ALU input, corresponding to the operand with the matched address. Forwarding rather than stalling allows the processor to perform more efficiently
+**Forwarding unit:** For each `ID_EX` operand, check:
+1. `ex_mem_reg_write == 1` (Writeback instructions only)
+2. `ex_mem_rd != 0` (`NOP` or `x0` targets don't need forwarding)
+3. `(ex_mem_rd == id_ex_rs1)||(ex_mem_rd == id_ex_rs2)` (The destination register must match a source register)
+If all 3 of these conditions are satisfied for an operand, `ex_mem_rd' is routed into ALU input, corresponding to the operand with the matched address. Forwarding rather than stalling allows the processor to perform more efficiently
 
 ### 🟡 MEM-to-EX Data
 * **The Hazard:** An instruction in the **EX stage** requires an operand calculated two cycles prior (currently sitting at the **WB stage** boundary), or it follows a back-to-back memory load (`LW`). The data isn't loaded until the end of the **MEM stage**
 * **Solution:** Forwarding unit and stalling unit
-*
-*
-* Create a forwarding unit per `ID_EX` operand that checks:
+**Forwarding unit:** For each `ID_EX` operand, check:
 1. `ex_mem_reg_write == 1` (Writeback instructions only)
 2. `ex_mem_rd != 0` (`NOP` or `x0` targets don't need forwarding)
 3. `(mem_wb_rd == id_ex_rs1)||mem_wb_rd == id_ex_rs2)` (The destination register must match a source register)
 If all 3 of these conditions are satisfied for an operand, `mem_wb_rd' is routed into ALU input, corresponding to the operand with the matched address.
+**Stalling unit:** check:
+1. `id_ex_mem_read == 1`
 
 
 
