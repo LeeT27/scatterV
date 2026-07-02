@@ -19,7 +19,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 - **Instruction Set:** RV32I base instructions — arithmetic, logic, loads, stores, branches, and jumps
 - **Custom `RND` instruction:** Generates a pseudorandom number generation every clock cycle with 32-bit LSFR
 - **Pipelined Architecture:** Multi stage execution for maximum clock speeds
-- **Hazard Protection:** Hazard protection using forwarding, stalling, branch prediction, and seperate memory
+- **Hazard Protection:** Hazard protection using forwarding, stalling, pipeline flushing, and seperate memory
 - **FPGA Deployment:** Deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
 - **Display Output:** Seven-segment display shows decimal numbers directly from the processor  
 - **Demo:** Assembly program that utilizes counters and `RND` for FPGA demo  
