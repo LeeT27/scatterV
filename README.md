@@ -218,7 +218,7 @@ end
 ```
 <img width="1000" alt="image" src="https://github.com/user-attachments/assets/db72ffdd-5fc8-4cce-9310-b30e35463949" />
 
-Haha. Insanely large waveform. The first sample iteration loop took ~10,000 clock cycles, and EDAPlayground doesn't want to show more than 20,000 clock cycles. Moving forward, I will only stick with FPGA demos for this program because the abundance of data to be displayed on EDA. As I zoom in, the behaviour is working correctly for the one cycle, where it is correctly squaring two random numbers between 0 and 255, adding them, and then correctly comparing the sum to the threshold of 65025 to setermine a hit or a miss.
+Haha. Insanely large waveform. The first sample iteration loop took ~10,000 clock cycles, and EDAPlayground doesn't want to show more than 20,000 clock cycles. Moving forward, I will only stick with FPGA demos for this program because the abundance of data to be displayed on EDA. As I zoom in, the behaviour is working correctly for the one cycle, where it is correctly squaring two random numbers between 0 and 255, adding them, and then correctly comparing the sum to the threshold of 65025 to determine if it's a hit or a miss.
 
 ### Part 1 Reflection Notes
 - It felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper intermediates, and JALR
