@@ -139,17 +139,20 @@ To implement this theory into ScatterV, I used an LFSR to utilize primitive poly
 
 Since RISC-V registers are 32 bits, a primitive polynomial of degree n = 32 will be used to produce 4,294,967,295 unique combinations! 
 ```systemverilog
-//Custom 32-bit Random Number Generator
     logic [31:0] lfsr_reg;
     logic        feedback_bit; //Gets fed into LSB
 
-    // Shift LEFT every cycle, feeding the XOR feedback into the LSB (bit 0)
+    // Shift left every cycle, feeding the feedback_bit into the LSB (bit 0)
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
             lfsr_reg <= 32'hECEB; // Seed value
         end else begin
             lfsr_reg <= {lfsr_reg[30:0], feedback_bit}; // Drops bit 31, shifts everything left, places feedback in bit 0
         end
+    end
+    always_comb begin
+        // XOR taps at bits 31, 21, 1, and 0, if result somehow becomes 0, inject a 1
+        feedback_bit = (lfsr_reg == 32'b0) ? 1'b1 : (lfsr_reg[31] ^ lfsr_reg[21] ^ lfsr_reg[1] ^ lfsr_reg[0]);
     end
 ```
 ### Testing #1
