@@ -167,10 +167,10 @@ end
 
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/22387364-5652-4ba4-980d-d7fb6f12d4c1" />
 
-It worked! :) I forgot to append the LSFR signal, but the register is successfully outputting pseudorandom numbers every clock cycle.
+It worked! :) x3 successfully has the value 0x0002 at the end of the program. I forgot to append the LSFR signal, but the register is successfully outputting pseudorandom numbers every clock cycle.
 
 ### Testing #2
-Here is a program that squares a random number between 1 and 10
+Here is a program that squares a random number between 1 and 8
 ```systemverilog
 initial begin
     mem[0] = 32'h00100093; // addi x1, x0, 1  (x1 = 1)
@@ -182,6 +182,8 @@ initial begin
     end
 end
 ```
+
+
 
 ### Part 1 Reflection Notes
 - It felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper intermediates, and JALR
