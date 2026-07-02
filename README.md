@@ -289,8 +289,18 @@ When pipelining the processesor, overlapping the execution of multiple instructi
 If all 3 of these conditions are satisfied for an operand, `ex_mem_rd' is routed into ALU input, corresponding to the operand with the matched address. Forwarding rather than stalling allows the processor to perform more efficiently
 
 ### 🟡 MEM-to-EX Data
-* **The Hazard:** An instruction in the **EX** stage needs an operand calculated two cycles prior (currently at the **WB** boundary), or it follows a back-to-back memory load (`LW`). Because data pulled from RAM is not physically available until the end of the **MEM** stage, it cannot be forwarded backward in time to an immediate sequential instruction.
-* **Solution:** For regular multi-cycle arithmetic dependencies, the Forwarding Unit routes data directly from the `MEM/WB` register back into the ALU inputs. For a load-use conflict, the Hazard Detection Unit forces a **1-cycle hardware stall**—freezing the PC/Fetch stage and injecting a NOP "bubble" into `ID/EX`—delaying the instruction by one cycle so that the MEM-to-EX forwarding path can safely capture the data.
+* **The Hazard:** An instruction in the **EX stage** requires an operand calculated two cycles prior (currently sitting at the **WB stage** boundary), or it follows a back-to-back memory load (`LW`). Because data pulled from RAM is not physically available until the end of the MEM stage, it cannot be forwarded backward in time to an immediate sequential instruction.
+* **Solution:** Create a forwarding unit per `ID_EX` operand that constantly tests these combinational comparisons:
+1. `ex_mem_reg_write == 1` (Writeback instructions only)
+2. `ex_mem_rd != 0` (`NOP` or `x0` targets don't need forwarding)
+3. `(mem_wb_rd == id_ex_rs1)||mem_wb_rd == id_ex_rs2)` (The destination register must match a source register)
+If all 3 of these conditions are satisfied for an operand, `ex_mem_rd' is routed into ALU input, corresponding to the operand with the matched address. 
+
+
+
+
+*   **For multi-cycle arithmetic dependencies:** The Forwarding Unit constantly tests if **`mem_wb_reg_write == 1`**, **`mem_wb_rd != 0`**, and a source register matches (**`mem_wb_rd == id_ex_rs1`** or **`mem_wb_rd == id_ex_rs2`**). If satisfied, **`mem_wb_data`** is routed straight into the corresponding **ALU input**.
+*   **For load-use conflicts:** If the instruction in EX is a load (**`id_ex_mem_read == 1`**) and its destination matches a source (**`id_ex_rd == if_id_rs1`** or **`id_ex_rd == if_id_rs2`**), the Hazard Detection Unit forces a **1-cycle hardware stall**—freezing the PC/Fetch stage and injecting a `NOP` bubble into **ID/EX**—allowing the subsequent MEM-to-EX path to safely capture the data.
 
 ### 🟢 Control
 * **The Hazard:** If a branch or jump is taken, the instructions tagged along after that instruction (contents in **IF** and **ID** stages) should no longer be in the pipeline.
