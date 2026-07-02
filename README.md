@@ -6,7 +6,7 @@
 March 31, 2026
 
 # ScatterV
-- BIG BULLET POINT
+- Designed, verified, and synthesized a 5-stage pipelined RISC-V processor in SystemVerilog, engineering a custom hardware pseudo-random number generator instruction (RND) to perform hardware-level Monte Carlo simulations.
   
 ScatterV is a **custom pipelined RISC-V processor** implemented in SystemVerilog and **synthesized on FPGA**. It features standard functionality of a RISC-V processor and includes a custom instruction, `RND`, which loads a pseudorandom number into a register using a linear feedback shift register (LFSR) to produce maximal-length sequences. Hardware level random number generation sets the foundation for applications such as cryptography, simulations, and randomized algorithms.
 
