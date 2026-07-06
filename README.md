@@ -272,6 +272,8 @@ I replaced old registers with 4 new groups of hardware registers to transfer dat
 #### 1. IF/ID
 * `if_id_pc`
 * `if_id_instruction`
+* `if_id_rs1`
+* `if_id_rs2`
 
 #### 2. ID/EX
 * `id_ex_pc`
