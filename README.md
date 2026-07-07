@@ -331,14 +331,21 @@ If all 3 of these conditions are satisfied for an operand, `mem_wb_rd' is routed
 1. `id_ex_mem_read == 1`
 2. `(mem_wb_rd == id_ex_rs1)||mem_wb_rd == id_ex_rs2)`
 
+### 🟢 WB-to-ID Data (Register File Hazard)
+* **The Hazard:** An instruction in the **ID stage** needs to combinationally read a register value that is currently being updated by an older instruction in the **WB stage** during the exact same clock cycle. 
+* **Solution:** Half-cycle clocking (Falling-edge write) or Internal Register Bypass
 
-### 🟢 Control
+**Option A: Falling-Edge Write Unit (The Structural Trick)**
+Modify the Register File clocking architecture:
+1. Force the Register File write logic to trigger strictly on `negedge clk`.
+
+### 🔵 Control
 * **The Hazard:** If a branch or jump is taken, the instructions tagged along after that instruction (contents in **IF** and **ID** stages) should no longer be in the pipeline.
 * **Solution:** Flushing unit
   
 **Flushing unit:** Perform a flush signal on the next clock edge that sets if_id_instruction to `32'h00000013` (NOP) and id_ex_control to `32'h00000000`, essential eliminating the upcoming instructions in the pipeline
 
-### 🔵 Structural
+### 🟣 Structural
 * **The Hazard:** Two instructions try to read RAM in the same clock cycle when RAM only has one read (instruction fetch paired with load instruction).
 * **Solution:** This is already solved because ScatterV uses splits memory modules. instruction_memory for instruction fetches, and program_memory for loading and reading
 
