@@ -37,12 +37,12 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 | **Demo** | RISC-V Assembly | Created a custom demo assembly code that approximates closer to pi every second using a Monte Carlo plotting simulation |
 
 ---
-## Demo Program: Monte Carlo $\pi$ Approximation
+## Demo Program: Monte Carlo π Approximation
 
-To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly. The main star of the show in this simulation is the custom `RND` instruction that constantly creates pseudorandom coordinates.
+To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly that estimates π as the sample size converges to ∞. The main star of the show in this simulation is the custom `RND` instruction that constantly creates pseudorandom coordinates to be used in branch calculations to determine a hit or miss.
 
 ### Mathematical Principle
-The program approximates $\pi$ by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (1,1) every tenth of a second and determining the ratio of points that fall inside the shaded quarter circle, calculated using the following circle equation:
+The program approximates π by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (1,1) every tenth of a second and determining the ratio of points that fall inside the shaded quarter circle, calculated using the following circle equation:
 
 $$x^2 + y^2 \le 1$$
 
@@ -54,25 +54,24 @@ An internal "hits" counter is incremented everytime it lands inside the quarter 
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
-The ratio converges to π as the sample size approaches ∞, 
-
-For the sake of hardware, I stuck to displaying only hits and sample count on FPGA so that decimals don't need to be calculated.
+The ratio will converge to π as the sample size approaches ∞. For the sake of hardware, I stuck to displaying only hits and sample count on FPGA so that decimals don't need to be calculated. Here is the video demo of the working proccesor and program:
 
 [https://img.youtube.com/vi/kfW94tNMFkA/0.jpg](https://upload.wikimedia.org/wikipedia/commons/0/0b/RedDot_Burger.jpg)
 
 ---
-## Architecture Overview
+## Architecture Overview (Pipelined)
 
 | Module Name | Key Functionality |
 | :--- | :--- |
-| `top_module` | Contains all sub-modules, multiplexing, and pipelining logic |
-| `program_counter` | Manages the current instruction address |
+| `top_module` | Contains struct definitions, signal declaration, multiplexing, pipelining logic, hazard units, and all the submodule instantiation |
+| `program_counter` | Sets next instruction address |
 | `instruction_memory`| Stores pre-loaded executable test program |
 | `control_unit` | Parses opcode and generate control signals |
-| `immediate_generator`| Formats and extends immediate values depending on instruction |
-| `register_file` | Holds 32 registers bank with synchronous writes and asynchronous reads |
-| `alu` | Performs arithmetic, logic, shifts and RNG |
-| `program_memory` | Contains 4 kb RAM supporting `lb`, `lh`, `lw`, `sb`, `sh`, and `sw` operations |
+| `immediate_generator`| Parses opcode to formats and extend immediate values |
+| `register_file` | Holds 32 register bank with synchronous writes and asynchronous reads |
+| `program_memory` | Holds 4 KB RAM with supporting `lb`, `lh`, `lw`, `sb`, `sh`, and `sw` operations |
+| `alu` | Performs arithmetic, logic, shifts, RNG, flag conditions |
+| `tb` | Contains basic testbench with reset + clock |
 
 ---
 
@@ -103,21 +102,24 @@ For the sake of hardware, I stuck to displaying only hits and sample count on FP
 
 ## Control Signal Reference
 
-| Instruction | `alu_src` | `alu_op` | `auipc_en` | `mem_read` | `mem_write` | `reg_write` | `wb_sel` | `pc_sel` |
+| Instruction | `pc_sel` | `alu_src` | `alu_op` | `auipc_en` | `ram_read` | `ram_write` | `reg_write` | `wb_sel` |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **R-Type** | 0 | 10 | 0 | 0 | 0 | 1 | 00 | 00 |
-| **ADDI** | 1 | 10 | 0 | 0 | 0 | 1 | 00 | 00 |
-| **LOAD** | 1 | 00 | 0 | 1 | 0 | 1 | 01 | 00 |
-| **STORE** | 1 | 00 | 0 | 0 | 1 | 0 | XX | 00 |
-| **BRANCH** | 0 | 01 | 0 | 0 | 0 | 0 | XX | 10 |
-| **LUI** | 1 | XX | 0 | 0 | 0 | 1 | 11 | 00 |
-| **AUIPC** | 1 | 00 | 1 | 0 | 0 | 1 | 00 | 00 |
-| **JAL** | 1 | XX | 0 | 0 | 0 | 1 | 10 | 01 |
-| **JALR** | 1 | XX | 0 | 0 | 0 | 1 | 10 | 11 |
-| **RND** | X | 11 | 0 | 0 | 0 | 1 | 00 | 00 |
+| **R-Type** | 00 | 0 | 10 | 0 | 0 | 0 | 1 | 00 |
+| **ADDI** | 00 | 1 | 10 | 0 | 0 | 0 | 1 | 00 |
+| **LOAD** | 00 | 1 | 00 | 0 | 1 | 0 | 1 | 01 |
+| **STORE** | 00 | 1 | 00 | 0 | 0 | 1 | 0 | XX |
+| **BRANCH** | 10 | 0 | 01 | 0 | 0 | 0 | 0 | XX |
+| **LUI** | 00 | 1 | XX | 0 | 0 | 0 | 1 | 11 |
+| **AUIPC** | 00 | 1 | 00 | 1 | 0 | 0 | 1 | 00 |
+| **JAL** | 01 | 1 | XX | 0 | 0 | 0 | 1 | 10 |
+| **JALR** | 11 | 1 | XX | 0 | 0 | 0 | 1 | 10 |
+| **RND** | 00 | X | 11 | 0 | 0 | 0 | 1 | 00 |
 
-* **wb_sel:** `00` = ALU, `01` = DataMem, `10` = PC+4, `11` = Immediate.
-* **pc_sel:** `00` = PC+4, `01` = JAL, `10` = Branch, `11` = JALR.
+* **pc_sel:** `00` = PC+4, `01` = JAL, `10` = Branch, `11` = JALR
+* **alu_src:** `0` = rs2_value, `1` = immediate
+* **alu_op:** `00` ADD, `01` SUB, `10` Normal, `11` RND
+* **auipc_en:** `0` = rs1_value, `1` = PC
+* **wb_sel:** `00` = ALU, `01` = read memory, `10` = PC+4, `11` = Immediate
   
 ---
 
