@@ -245,13 +245,13 @@ initial begin
 Haha. Insanely large waveform. The first sample iteration loop took ~10,000 clock cycles, and EDAPlayground doesn't want to show more than 20,000 clock cycles. Moving forward, I will only stick with FPGA demos for this program because the abundance of data to be displayed on EDA. As I zoom in, the behaviour is working correctly for the one cycle, where it is correctly squared two random numbers between 0 and 255, added them to get 45370, and then correctly determined that the value is less than the threshold of 65025, counting as a hit. Therefore, both the sample count and hit count were incremented.
 
 ### Part 1 Reflection Notes
-- It felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper intermediates, and JALR
-- Starting with the top module and control unit first helped me visualize the I/O of the other modules easily
-- New instruction types meant a lot more multiplexers in the top module to select next pc, writeback, operands, and more depending on the control signals
-- A lot of new control signals seemed difficult to track and sometimes a whole new signal was needed for a single instruction
+- It felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper intermediates, and JALR.
+- Starting with the top module and control unit first helped me visualize the I/O of the other modules easily.
+- New instruction types meant a lot more multiplexers in the top module to select next pc, writeback, operands, and more depending on the control signals.
+- A lot of new control signals seemed difficult to track and sometimes a whole new signal was needed for a single instruction.
 - One frustrating moment was when I had to implement funct7 extensions for SUB, SRA, and SRAI, since there were more than 8 arithmetic operations, where not only did I have to allow func3 to only be passed in R and I type instructions, I had to specifically disable funct3 for ADDI so that the immediate value doesn't trigger an unintentional subtract.
-- It was difficult implementing byte, half word, and full word stores and loads because I had to manage offsets if the selected memory address wasn't a factor of 4
-- What helped me to debug these was working was constantly using EDAPlayground and appending register signals to test each individual instructions and making sure the correct control signals and multiplexer results had correct behaviour
+- It was difficult implementing byte, half word, and full word stores and loads because I had to manage offsets if the selected memory address wasn't a factor of 4.
+- What helped me to debug these was working was constantly using EDAPlayground and appending register signals to test each individual instructions and making sure the correct control signals and multiplexer results had correct behaviour.
 
 ## Part 2: Pipeline architecture and hazard mitigation
 This portion of the project is about pipelining my functional single cycle RISC-V core in order to increase the maximum clock speed. A major issue with my first processor a year back was not only that it was a single cycle, where each instruction needed to complete the 5 stages before the next instruction but also that heavy instructions such as `MULT` and `DIV` made the worst case propagation delay much longer. I pipelined scatterV using the following 5-stage RISC-V pipeline model to minimize the worst case propagation delay:
@@ -385,10 +385,9 @@ end
 
 Another success! The random number masked between 0x0007 and the LSFR was 0x0005 (5 in decimal), added by 1, and then was squared to store the value 0x0024 (36 in decimal) into x3. Now I get to move on to synthesizing the FPGA to simulate the monte carlo program.
 ### Part 2 Reflection Notes
-- Pipelining the processor was honestly a lot more fun than part 1, where I had to replicate the RISC-V ISA. This was because I got to work with a module structure that was already functional compared to nothing, therefore I was sure that every mistake in the pipelining was a lot easier to track and isolate.
-- Changing each register to its pipelined versions felt like a fun little puzzle, where I had to keep visualizing each different instruction going through the five stages and how the register values should change across the 5 stages.
-- The register groups made the top module look a LOT more organized, as I could now easily select a signal/register based on what stage it's in
-- When I initially attempted pipelining ScatterV, I would try to stick with only the double stage name registers like id_ex or mem_wb, but I found it to be a lot neater by seperating the flip-flop outputs as the double stage names and the combinational outputs as the single stage names.
+- Pipelining the processor was honestly a lot more fun than part 1, where I had to replicate the RISC-V ISA. This was because I got to work with a module structure that was already functional compared to nothing, therefore I was sure that every mistake in the pipelining was a lot easier to track and isolate. Changing each register to its pipelined versions felt like a fun little puzzle, where I had to keep visualizing each different instruction going through the five stages and how the register values should change across the 5 stages.
+- The register groups made the top module look a LOT more organized than in single-cycle, as I could now easily select a signal/register based on what stage it's in. When I initially attempted pipelining ScatterV, I would try to stick with only the double stage name registers like id_ex or mem_wb, but I found it to be a lot neater by seperating the flip-flop outputs to the double stage names and the combinational outputs to the single stage names.
+- I was surprised to find that there are so many different ways I could've designed this. A good example was when I was trying to extract `id_opcode` from the instruction. I could've either latched `if_instruction[6:0]` via a flip-flop to `id_opcode`, or I could've waited for `if_id_instruction` to come out of its flip-flop so that I could combinationally assign `if_id_instruction[6:0]` to `id_opcode`. I discovered that there are different minor benefits and tradeoffs to each approach such as fanout reduction but an extra register with the first approach and less flip-flops needed, but more combinational logic for the second approach.
 
 ---
 
