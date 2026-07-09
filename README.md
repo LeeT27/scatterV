@@ -170,7 +170,7 @@ initial begin
 end
 ```
 
-<img width="700" alt="image" src="https://github.com/user-attachments/assets/22387364-5652-4ba4-980d-d7fb6f12d4c1" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/22387364-5652-4ba4-980d-d7fb6f12d4c1" />
 
 It worked! :) x3 successfully has the value 0x0002 at the end of the program. I forgot to append the LSFR signal, but the register is correctly outputting pseudorandom numbers every clock cycle.
 
@@ -195,7 +195,7 @@ initial begin
 end
 ```
 
-<img width="1000" alt="image" src="https://github.com/user-attachments/assets/60ea3478-94e5-40d5-8257-5a40829bc2e1" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/60ea3478-94e5-40d5-8257-5a40829bc2e1" />
 
 This one also worked! The random number masked between 0x0007 and the LSFR was 0x0003 (3 in decimal), added by 1, and then was squared to store the value 0x0010 (16 in decimal) into x3. It was very assuring seeing that the randomization system is correctly used in a program.
 
@@ -240,7 +240,7 @@ initial begin
         end
     end
 ```
-<img width="1000" alt="image" src="https://github.com/user-attachments/assets/db72ffdd-5fc8-4cce-9310-b30e35463949" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/db72ffdd-5fc8-4cce-9310-b30e35463949" />
 
 Haha. Insanely large waveform. The first sample iteration loop took ~10,000 clock cycles, and EDAPlayground doesn't want to show more than 20,000 clock cycles. Moving forward, I will only stick with FPGA demos for this program because the abundance of data to be displayed on EDA. As I zoom in, the behaviour is working correctly for the one cycle, where it is correctly squared two random numbers between 0 and 255, added them to get 45370, and then correctly determined that the value is less than the threshold of 65025, counting as a hit. Therefore, both the sample count and hit count were incremented.
 
