@@ -156,7 +156,7 @@ Since RISC-V registers are 32 bits, a primitive polynomial of degree n = 32 will
     end
 ```
 ### Testing #1
-For testing throughout this project, I just used a general testbench that outputs a reset and clock. Most of the verification when creating this is waveform analysis. Here is a program that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
+For testing throughout this project, I just used a general testbench that outputs a reset and clock. Most of the verification when creating this is waveform analysis. Here is a program that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end:
 
 ```systemverilog
 initial begin
@@ -175,7 +175,7 @@ end
 It worked! :) x3 successfully has the value 0x0002 at the end of the program. I forgot to append the LSFR signal, but the register is correctly outputting pseudorandom numbers every clock cycle.
 
 ### Testing #2
-Here is a second program that squares a random number between 1 and 8 and stores the value into x3
+Here is a second program that squares a random number between 1 and 8 and stores the value into x3:
 ```systemverilog
 initial begin
     mem[0]  = 32'h0000008B; // rnd x1              (x1 = fresh random 32-bit number)
