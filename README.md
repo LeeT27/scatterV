@@ -6,9 +6,9 @@
 March 31, 2026
 
 # ScatterV
-ScatterV is a **custom pipelined RISC-V processor** implemented in SystemVerilog and **synthesized on FPGA**. It features standard functionality of a RISC-V processor and **includes a custom instruction**, `RND`, which loads a pseudorandom number into a register using a linear feedback shift register (LFSR) to produce maximal-length sequences. Hardware level random number generation sets the foundation for applications such as cryptography, simulations, and randomized algorithms.
+ScatterV is a **custom pipelined RISC-V processor** implemented in SystemVerilog and **synthesized on FPGA**. It features standard functionality of a RISC-V processor and **includes a custom instruction**, `RND`, which loads a pseudorandom number into a register using a linear feedback shift register (LFSR) to produce maximal-length sequences. I wanted to explore hardware level random number generation for its applications in cryptography, simulations, and randomized algorithms.
 
-This repository builds upon my previous work, [learningVerilog](https://github.com/LeeT27/learningVerilog), where I created a simple, single cycle processor to execute basic ALU, loads, stores, and jumps. ScatterV improves upon this through RISC-V compatibility, new complex instructions, pipelining, and hardware simulation. I seperated the project into three major parts/milestones:
+This repository builds upon my previous work, [learningVerilog](https://github.com/LeeT27/learningVerilog), where I created a simple, single cycle processor to execute basic ALU, loads, stores, and jumps. ScatterV improves upon this through RISC-V compatibility, new complex instructions, pipelining, hazard detection, and hardware simulation. I seperated the project into three major parts/milestones:
 1. Single cycle RISC-V core and RNG implementation
 2. Pipeline architecture and hazard mitigation
 3. Hardware synthesis and FPGA demo
@@ -16,13 +16,13 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ---
 
 ## Features
-- **Instruction Set:** RV32I base instructions — arithmetic, logic, loads, stores, branches, and jumps
-- **Custom `RND` instruction:** Generates a pseudorandom number generation every clock cycle with 32-bit LSFR
-- **Pipelined Architecture:** Multi stage execution for maximum clock speeds
-- **Hazard Protection:** Hazard protection using forwarding, stalling, pipeline flushing, and seperate memory
-- **FPGA Deployment:** Deployed on FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
-- **Display Output:** Seven-segment display shows decimal numbers directly from the processor  
-- **Demo:** Assembly program that utilizes counters and `RND` for FPGA demo  
+- **Instruction Set:** RV32I base instructions — R, I, U, S, B, J types
+- **Custom `RND` instruction:** Writes a pseudorandom number that changes every clock cycle with 32-bit LSFR to register
+- **Pipelined Architecture:** Multi stage execution for maximum clock speeds: IF ID EX MEM WB
+- **Hazard Protection:** Hazard protection using forwarding, stalling, flushing, and split memory architecture
+- **FPGA Deployment:** Deployed on Spartan-7 FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
+- **Display Output:** Seven-segment display peripheral displays register values for demos
+- **Demo:** Assembly program that utilizes the new `RND` instruction on FPGA, recorded on video
 
 ---
 
