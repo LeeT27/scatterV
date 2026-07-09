@@ -279,9 +279,8 @@ I replaced all the old registers in `top_module` with new completely new registe
 | **ID/EX** | `id_ex_pc`, `id_ex_rs1_data`, `id_ex_rs2_data`, `id_ex_imm`, `id_ex_opcode`, `id_ex_rs1`, `id_ex_rs2`, `id_ex_rd`, `id_ex_funct7`, `id_ex_funct3`, `id_ex_control` |
 | **EX** | `ex_alu_result`, `ex_operand1`, `ex_operand2`, `ex_rs1_value`, `ex_rs2_value`, `ex_zero_flag`, `ex_less_than`, `ex_branch_condition_met` |
 | **EX/MEM** | `ex_mem_pc`, `ex_mem_alu_result`, `ex_mem_rs2_data`, `ex_mem_imm`, `ex_mem_rd`, `ex_mem_funct3`, `ex_mem_control` |
-| **MEM** | `ex_mem_ram_read_en`, `ex_mem_ram_write_en`, `mem_wb_read_data` |
 | **MEM/WB** | `mem_wb_pc`, `mem_wb_alu_result`, `mem_wb_read_data`, `mem_wb_imm`, `mem_wb_rd`, `mem_wb_control` |
-| **WB** | `wb_rd_data`, `mem_wb_reg_write_en` |
+| **WB** | `wb_rd_data` |
 
 ### Control Signal Optimization
 In the pipelined model, I made single bit-vector value to represent all the control signals rather than a bunch of individual wires so that I could easily pass one value between pipeline register groups and then manually select bits to be passed per stage. This is the format of the control value:
