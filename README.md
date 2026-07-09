@@ -18,8 +18,8 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ## Features
 - **Instruction Set:** RV32I base instructions — R, I, U, S, B, J types
 - **Custom `RND` instruction:** Writes a pseudorandom number that changes every clock cycle with 32-bit LSFR to register
-- **Pipelined Architecture:** Multi stage execution for maximum clock speeds: IF→ID→EX→MEM→WB
-- **Hazard Protection:** Hazard protection using forwarding, stalling, flushing, and split memory architecture
+- **Pipelined Architecture:** Multi stage execution for maximum clock speeds — IF→ID→EX→MEM→WB
+- **Hazard Protection:** Hazard protection using forwarding, stalling, flushing, and split memory
 - **FPGA Deployment:** Deployed on Spartan-7 FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
 - **Display Output:** Seven-segment display peripheral displays register values for demos
 - **Demo:** Assembly program that utilizes the new `RND` instruction on FPGA, recorded on video
