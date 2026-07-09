@@ -383,9 +383,12 @@ end
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/523cbb7f-60a8-4af3-8a8a-351891f9e6c8" />
 
-Another success! The random number masked between 0x0007 and the LSFR was 0x0005 (5 in decimal), added by 1, and then was squared to store the value 0x0024 (36 in decimal) into x3. 
+Another success! The random number masked between 0x0007 and the LSFR was 0x0005 (5 in decimal), added by 1, and then was squared to store the value 0x0024 (36 in decimal) into x3. Now I get to move on to synthesizing the FPGA to simulate the monte carlo program.
 ### Part 2 Reflection Notes
-
+- Pipelining the processor was honestly a lot more fun than part 1, where I had to replicate the RISC-V ISA. This was because I got to work with a module structure that was already functional compared to nothing, therefore I was sure that every mistake in the pipelining was a lot easier to track and isolate.
+- Changing each register to its pipelined versions felt like a fun little puzzle, where I had to keep visualizing each different instruction going through the five stages and how the register values should change across the 5 stages.
+- The register groups made the top module look a LOT more organized, as I could now easily select a signal/register based on what stage it's in
+- When I initially attempted pipelining ScatterV, I would try to stick with only the double stage name registers like id_ex or mem_wb, but I found it to be a lot neater by seperating the flip-flop outputs as the double stage names and the combinational outputs as the single stage names.
 
 ---
 
