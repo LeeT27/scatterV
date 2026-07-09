@@ -358,6 +358,8 @@ end
 
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/e8e8ce59-e897-40d6-9d51-4760b1ec1756" />
 
+Success! :) Once again, x3 has the value 0x0002 after finishing. It was so reassuring to see that a program can actually run considering how much work I had to put into the new registers, timing, and hazard conditions. Like expected, this program took more clock cycles to run, but it makes sense considering how much efficiency the increased clock speed will provide for longer programs.
+
 ### Testing (pipelined) #2
 Here is a second program that squares a random number between 1 and 8 and stores the value into x3:
 ```systemverilog
@@ -379,10 +381,9 @@ initial begin
 end
 ```
 
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/60ea3478-94e5-40d5-8257-5a40829bc2e1" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/523cbb7f-60a8-4af3-8a8a-351891f9e6c8" />
 
-This one also worked! The random number masked between 0x0007 and the LSFR was 0x0003 (3 in decimal), added by 1, and then was squared to store the value 0x0010 (16 in decimal) into x3. It was very assuring seeing that the randomization system is correctly used in a program.
-Success! :) Once again, x3 has the value 0x0002 after finishing. It was so reassuring to see that a program can actually run considering how much work I had to put into the new registers, timing, and hazard conditions. Like expected, this program took more clock cycles to run, but it makes sense considering how much efficiency the increased clock speed will provide for longer programs.
+Another success! The random number masked between 0x0007 and the LSFR was 0x0005 (5 in decimal), added by 1, and then was squared to store the value 0x0024 (36 in decimal) into x3. 
 ### Part 2 Reflection Notes
 
 
