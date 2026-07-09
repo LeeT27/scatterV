@@ -124,7 +124,7 @@ The ratio will converge to π as the sample size approaches ∞. For the sake of
 ---
 
 ## Part 1: Single cycle RISC-V core and RNG implementation
-When I finished designing my very [first processor](https://github.com/LeeT27/learningVerilog) around a year ago, I felt very thrilled that I created a custom ISA CPU that could perform simple arithmetic programs. Reflecting, I realized that my ISA was inefficient, slow, and lacking in instructions, I felt more inspired to take on more industry level processors such as RISC-V, while also tackling pipeline theory. I chose RISC-V for its popularity in IoT, embedded systems, and operating systems. Finding that RISC-V is easily modifiable, I also wanted to create a custom instruction, `RND`, that could be used for demonstration. Here is the theory behind hardware RNG:
+When I finished designing my very [first processor](https://github.com/LeeT27/learningVerilog) around a year ago, I felt very thrilled that I created a custom ISA CPU that could perform simple arithmetic programs. Reflecting, I realized that my ISA was inefficient, slow, and lacking in instructions. I wanted to try again as I felt more inspired to take on more industry level processors such as RISC-V, while also tackling pipeline theory. I chose RISC-V for its popularity in IoT, embedded systems, and operating systems. Finding that RISC-V is easily modifiable, I also wanted to create a custom instruction, `RND`, that could be used for demonstration because I found its real world applications to be amusing. Here is the theory behind hardware RNG:
 
 ### 🎲 `RND` Instruction Implementation
 The core of ScatterV's random number generation comes from the abstract algebra theory of primitive polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating the same pattern needs to be maximized. This is where the magic of primitive polynomials comes in. A primitive polynomial is a special type of irreducible polynomial, meaning that it cannot be factored into smaller polynomials. Another property is that a primitive polynomial of degree n has $(2^{n}-1)$ unique states before repeating to its old pattern (base will be 2 for digital logic). A good analogy is that if you have a deck of 52 cards, the shuffling mechanism of a primitive polynomial would go through all 52 cards before repeating the pattern rather than a smaller pattern of cycling through the same 8 cards. Here below is an example of a primitive polynomial of degree n = 3: 
@@ -156,7 +156,7 @@ Since RISC-V registers are 32 bits, a primitive polynomial of degree n = 32 will
     end
 ```
 ### Testing #1
-Here is a program that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
+For testing throughout this project, I just used a general testbench that outputs a reset and clock. Most of the verification when creating this is waveform analysis. Here is a program that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
 
 ```systemverilog
 initial begin
@@ -172,7 +172,7 @@ end
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/22387364-5652-4ba4-980d-d7fb6f12d4c1" />
 
-It worked! :) x3 successfully has the value 0x0002 at the end of the program. I forgot to append the LSFR signal, but the register is successfully outputting pseudorandom numbers every clock cycle.
+It worked! :) x3 successfully has the value 0x0002 at the end of the program. I forgot to append the LSFR signal, but the register is correctly outputting pseudorandom numbers every clock cycle.
 
 ### Testing #2
 Here is a second program that squares a random number between 1 and 8 and stores the value into x3
@@ -200,7 +200,7 @@ end
 This one also worked! The random number masked between 0x0007 and the LSFR was 0x0003 (3 in decimal), added by 1, and then was squared to store the value 0x0010 (16 in decimal) into x3. It was very assuring seeing that the randomization system is correctly used in a program.
 
 ### Testing #3
-This final test program performs the monte carlo pi approximation and then stores the value into x3
+This final test program performs the monte carlo pi approximation as in the demo and stores # of hits into x9 and sample size into x10
 ```systemverilog
 initial begin
         mem[0]  = 32'h00010337; // lui x6, 16
@@ -256,17 +256,17 @@ Haha. Insanely large waveform. The first sample iteration loop took ~10,000 cloc
 ## Part 2: Pipeline architecture and hazard mitigation
 This portion of the project is about pipelining my functional single cycle RISC-V core in order to increase the maximum clock speed. A major issue with my first processor a year back was not only that it was a single cycle, where each instruction needed to complete the 5 stages before the next instruction but also that heavy instructions such as `MULT` and `DIV` made the worst case propagation delay much longer. I pipelined scatterV using the following 5-stage RISC-V pipeline model to minimize the worst case propagation delay:
 
-1. **Instruction Fetch (IF):** Fetches the instruction from `instruction_memory` based on the current PC value
-2. **Instruction Decode (ID):** Decodes the fetched instruction to set control signals and multiplexer selection
-3. **Execute (EX):** Performs arithmetic, branches, jumps, or reading `lfsr_reg` for the `RND` instruction
-4. **Memory Access (MEM):** Reads/writes the program memory for loads/stores
-5. **Write Back (WB):** Writes the final result, selected by wb_sel, into `rd`
+1. **Instruction Fetch (IF):** Fetches the instruction from `instruction_memory`, using `if_pc` as a pointer
+2. **Instruction Decode (ID):** Decodes the fetched instruction to pass control signals, generate immediates, and read combinationally read register
+3. **Execute (EX):** Combinationally performs arithmetic, branches, jumps, RNG, and flag conditions
+4. **Memory Access (MEM):** Sequentially reads or writes the program memory for loads/stores
+5. **Write Back (WB):** Writes a value into a register if control signal allows
 
 Here is a good visual that helped me understand the flow of instructions using single-cycle vs pipelining:
 
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/e86e4c30-aaab-4ef0-98cd-d5abffc16312" />
 
-While pipelining has a slight latency when filling and emptying the pipeline, the minimized worst case propagation delay allows for a much higher maximum operating frequency, running programs more efficiently
+While pipelining has a slight latency when filling and emptying the pipeline, the minimized worst case propagation delay allows for a much higher maximum operating frequency, running programs more efficiently.
 
 ### Pipeline Registers
 I replaced old registers with 4 new groups of hardware registers to transfer data between the 5 stages directly using synchronized `always_ff` blocks in `top_module`:
