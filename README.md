@@ -283,11 +283,13 @@ I replaced all the old registers in `top_module` with new completely new registe
 | **WB** | `wb_rd_data` |
 
 ### Control Signal Optimization
-In the pipelined model, I made single bit-vector value to represent all the control signals rather than a bunch of individual wires so that I could easily pass one value between pipeline register groups and then manually select bits to be passed per stage. This is the format of the control value:
+In the pipelined model, I replaced the old system of individual control signals with packed struct passing. Without this, it was too unorganized trying to pass each individual signal through the pipeline register. Grouping the signals together as structs defined in `pipeline_pkg`, importing them to `top_module` and `control_unit`, and then passing the structs down the pipeline made the top module easier to read and debug.
 
-| Bit Index | [7] | [6:5] | [4] | [3] | [2] | [1:0] |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Signal Name** | `reg_write` | `wb_sel` | `mem_write` | `mem_read` | `rnd_sel` | `alu_op` |
+| Struct | Control Members |
+| :--- | :--- |
+| `id_ex_ctrl_t` | `pc_sel`, `alu_src`, `alu_op`, `auipc_en`, `ram_read`, `ram_write`, `reg_write`, `wb_sel` |
+| `ex_mem_ctrl_t` | `ram_read`, `ram_write`, `reg_write`, `wb_sel` |
+| `mem_wb_ctrl_t` | `reg_write`, `wb_sel` |
 
 ### Data Hazards
 When pipelining the processesor, overlapping the execution of multiple instructions at once introduces data, control, and structural hazards that cause unexpected behaviour. Here are the 4 main hazards I mitigated:
