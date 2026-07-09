@@ -295,7 +295,7 @@ In the pipelined model, I replaced the old system of individual control signals 
 When pipelining the processesor, overlapping the execution of multiple instructions at once introduces data, control, and structural hazards that cause unexpected behaviour. Here are the 5 main hazards I mitigated:
 
 ### 🔴 EX-to-EX Data
-* **The Hazard:** An instruction in the EX stage requires an operand calculated by the immediate preceding instruction, which is currently sitting in the MEM stage and hasn't been written back yet.
+* **The Hazard:** An instruction in the EX stage requires an operand calculated by the immediate preceding instruction
 * **Solution:** Forwarding unit
   
 **Forwarding unit:** For each ID_EX operand, check:
@@ -305,7 +305,7 @@ When pipelining the processesor, overlapping the execution of multiple instructi
 If all 3 of these conditions are satisfied for an operand, `ex_mem_rd' is routed as the new rs1 or rs2 value for the execution stage, corresponding to the operand with the matched address. Forwarding with minimal stalling allows the processor to keep the pipeline full, therefore bringing CPI (cycles per instruction) closer to its ideal value of 1.
 
 ### 🟡 MEM-to-EX Data
-* **The Hazard:** An instruction in the EX stage requires an operand calculated two cycles prior (currently sitting at the B stage boundary), or it follows a back-to-back memory load - The data isn't loaded until after the rising edge of **MEM/WB**
+* **The Hazard:** An instruction in the EX stage requires an operand calculated two cycles prior, or it follows a back-to-back memory load
 * **Solution:** Forwarding unit and stalling unit
   
 **Forwarding unit:** For each ID_EX operand, check:
@@ -323,7 +323,7 @@ Similar to EX-EX, if all 3 of these conditions are satisfied for an operand, `me
 1. `id_ex_control.ram_read == 1`
 2. `id_ex_rd != 5'b0`
 3. `(id_ex_rd == id_rs1)||id_ex_rd == id_rs2)`
-When the stalling flag is raised, it will be up for two cycles. In each cycle, every register in **ID/EX** is latched to zero and the PC is frozen. After the two cycles, the **MEM-EX** forwarding unit routes `mem_wb_read_data` as the new rs1 or rs2 value for the execution stage, corresponding to the operand with the matched address. I tried hard to make it so the design only performed a single stall, but changing `data_memory` to be synchronous forced the read data to be ready a cycle later.
+When the stalling flag is raised, it will be up for two cycles. In each cycle, every register in ID/EX is latched to zero and the PC is frozen. After the two cycles, the MEM-EX forwarding unit routes `mem_wb_read_data` as the new rs1 or rs2 value for the execution stage, corresponding to the operand with the matched address. I tried hard to make it so the design only performed a single stall, but changing `data_memory` to be synchronous forced the read data to be ready a cycle later.
 
 ### 🟢 WB-to-ID Data
 * **The Hazard:** An instruction in the ID stage needs to combinationally read a register value that is currently being updated by an older instruction in the WB stage during the exact same clock cycle. 
