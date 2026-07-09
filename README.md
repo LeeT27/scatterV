@@ -350,7 +350,24 @@ Modify the Register File clocking architecture:
 * **Solution:** This is already solved because ScatterV uses splits memory modules. instruction_memory for instruction fetches, and program_memory for loading and reading
 
 ### Testing #1
+Here is the program earlier that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
 
+```systemverilog
+initial begin
+    mem[0] = 32'h00100093; // addi x1, x0, 1  (x1 = 1)
+    mem[1] = 32'h00100113; // addi x2, x0, 1  (x2 = 1)
+    mem[2] = 32'h002081B3; // add/ add x3, x1, x2 (rd = 5'b00011)
+    mem[3] = 32'h0000006F; // j done (jump to current PC forever)
+    for (int i = 4; i < 64; i++) begin
+        mem[i] = 32'h00000013; // NOP (addi x0, x0, 0)
+    end
+end
+```
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/e8e8ce59-e897-40d6-9d51-4760b1ec1756" />
+
+
+Success! :) Once again, x3 has the value 0x0002 after finishing. It was so reassuring to see that a program can actually run considering how much work I had to put into the new registers, timing, and hazard conditions. Like expected, this program took more clock cycles to run, but it makes sense considering how much efficiency the increased clock speed will provide for longer programs.
 ### Part 2 Reflection Notes
 
 
