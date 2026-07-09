@@ -361,7 +361,7 @@ end
 Success! :) Once again, x3 has the value 0x0002 after finishing. It was so reassuring to see that a program can actually run considering how much work I had to put into the new registers, timing, and hazard conditions. Like expected, this program took more clock cycles to run, but it makes sense considering how much efficiency the increased clock speed will provide for longer programs.
 
 ### Testing (pipelined) #2
-Here is a second program that squares a random number between 1 and 8 and stores the value into x3:
+Here is the same second program from earlier that squares a random number between 1 and 8 and stores the value into x3:
 ```systemverilog
 initial begin
     mem[0]  = 32'h0000008B; // rnd x1              (x1 = fresh random 32-bit number)
