@@ -71,7 +71,6 @@ The ratio will converge to π as the sample size approaches ∞. For the sake of
 | `register_file` | Holds 32 register bank with synchronous writes and asynchronous reads |
 | `program_memory` | Holds 4 KB RAM with supporting `lb`, `lh`, `lw`, `sb`, `sh`, and `sw` operations |
 | `alu` | Performs arithmetic, logic, shifts, RNG, flag conditions |
-| `tb` | Contains basic testbench with reset + clock |
 
 ---
 
