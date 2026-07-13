@@ -8,7 +8,7 @@ March 31, 2026
 # ScatterV
 ScatterV is a **custom pipelined RISC-V processor** implemented in SystemVerilog and **synthesized on FPGA**. It features standard functionality of a RISC-V processor and **includes a custom instruction**, `RND`, which loads a pseudorandom number into a register using a linear feedback shift register (LFSR) to produce maximal-length sequences. I wanted to explore hardware level random number generation for its applications in cryptography, simulations, and randomized algorithms.
 
-This repository builds upon my previous work, [learningVerilog](https://github.com/LeeT27/learningVerilog), where I created a simple, single cycle processor to execute basic ALU, loads, stores, and jumps. ScatterV improves upon this through RISC-V compatibility, new complex instructions, pipelining, hazard detection, and hardware simulation. I seperated the project into three major parts/milestones:
+This repository builds upon my previous work, [learningVerilog](https://github.com/LeeT27/learningVerilog), where I created a simple, single cycle processor to execute basic ALU, loads, stores, and jumps. ScatterV improves upon this through RISC-V compatibility, new complex instructions, pipelining, hazard detection, and hardware simulation. I separated the project into three major parts/milestones:
 1. Single cycle RISC-V core and RNG implementation
 2. Pipeline architecture and hazard mitigation
 3. Hardware synthesis and FPGA demo
@@ -50,11 +50,11 @@ $$x^2 + y^2 \le 1$$
   <img src="https://github.com/user-attachments/assets/855c08f7-7e33-4f49-b01e-93e95c569be3" width="200px" alt="Monte Carlo">
 </div>
 <br><br>
-An internal "hits" counter is incremented everytime it lands inside the quarter circle and a total "samples counter" is incremented everytime, independent of where it lands. The approximation of π is found through the ratio of points:
+An internal "hits" counter is incremented every time it lands inside the quarter circle and a total "samples counter" is incremented every time, independent of where it lands. The approximation of π is found through the ratio of points:
 
 $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
-The ratio will converge to π as the sample size approaches ∞. For the sake of hardware, I stuck to displaying only hits and sample count on FPGA so that decimals don't need to be calculated. Here is the video demo of the working proccesor and program:
+The ratio will converge to π as the sample size approaches ∞. For the sake of hardware, I stuck to displaying only hits and sample count on FPGA so that decimals don't need to be calculated. Here is the video demo of the working processor and program:
 
 [https://img.youtube.com/vi/kfW94tNMFkA/0.jpg](https://upload.wikimedia.org/wikipedia/commons/0/0b/RedDot_Burger.jpg)
 
@@ -268,7 +268,7 @@ Here is a good visual that helped me understand the flow of instructions using s
 While pipelining has a slight latency when filling and emptying the pipeline, the minimized worst case propagation delay allows for a much higher maximum operating frequency, running programs more efficiently.
 
 ### Pipeline Registers
-I replaced all the old registers in `top_module` with new completely new register groups that transfer data across stages. Double stage names (e.g., `id_ex`, `ex_mem`, `mem_wb`) represent pipeline registers that use flip-flops to pass data. Single stage names represent internal signal values within each stage, determined by combinational logic. Here is the new register table:
+I replaced all the old registers in `top_module` with new completely new register groups that transfer data across stages. Double stage names (e.g., `id_ex`, `ex_mem`, `mem_wb`) represent pipeline registers that use flip-flops to pass data. Single stage names represent internal signal values within each stage, determined by combinational logic or slicing. Here is the new register table:
 
 | Pipeline Stage | Main Registers / Signals |
 | :--- | :--- |
