@@ -56,7 +56,7 @@ $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
 The ratio will converge to π as the sample size approaches ∞. For the sake of hardware, I stuck to displaying only hits and sample count on FPGA so that decimals don't need to be calculated. Here is the video demo of the working processor and program:
 
-[https://img.youtube.com/vi/kfW94tNMFkA/0.jpg](https://upload.wikimedia.org/wikipedia/commons/0/0b/RedDot_Burger.jpg)
+https://www.youtube.com/watch?v=-C9KRU8tSlg
 
 ---
 ## Architecture Overview (Pipelined)
