@@ -63,7 +63,7 @@ The ratio will converge to π as the sample size approaches ∞. For the sake of
 </p>
 
 ---
-## Architecture Overview (Pipelined)
+## Architecture Overview
 
 | Module Name | Key Functionality |
 | :--- | :--- |
