@@ -42,7 +42,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 To verify correct processor behavior, I implemented a Monte Carlo simulation written entirely in RISC-V assembly that estimates π as the sample size converges to ∞. The main star of the show in this simulation is the custom `RND` instruction that constantly creates pseudorandom coordinates to be used in branch calculations to determine a hit or miss.
 
 ### Mathematical Principle
-The program approximates π by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (1,1) every tenth of a second and determining the ratio of points that fall inside the shaded quarter circle, calculated using the following circle equation:
+The program approximates π by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (4095,4095) and determining the ratio of points that fall inside the shaded quarter circle using the following circle equation:
 
 $$x^2 + y^2 \le 1$$
 
@@ -56,7 +56,7 @@ $$\pi \approx 4 \times \frac{\text{hits}}{\text{total samples}}$$
 
 The ratio will converge to π as the sample size approaches ∞. For the sake of hardware, I stuck to displaying only hits and sample count on FPGA so that decimals don't need to be calculated. Here is the video demo of the working processor and program:
 
-https://www.youtube.com/watch?v=-C9KRU8tSlg
+[![ScatterV 5-Stage RISC-V: Monte Carlo π Approximation on FPGA](https://img.youtube.com/vi/-C9KRU8tSlg/maxresdefault.jpg)](https://www.youtube.com/watch?v=-C9KRU8tSlg)
 
 ---
 ## Architecture Overview (Pipelined)
