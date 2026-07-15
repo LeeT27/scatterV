@@ -21,8 +21,8 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 - **Pipelined Architecture:** Multi stage execution for maximum clock speeds — IF → ID → EX → MEM → WB
 - **Hazard Protection:** Hazard protection using forwarding, stalling, flushing, and split memory
 - **FPGA Deployment:** Deployed on Spartan-7 FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
-- **Display Output:** Seven-segment display peripheral displays register values for demos
-- **Demo:** Assembly program that utilizes the new `RND` instruction on FPGA, recorded on video
+- **I/O:** Seven-segment display peripheral, reset button, and PC freeze button
+- **Demo:** Assembly program that utilizes the new `RND` instruction on FPGA
 
 ---
 
@@ -34,7 +34,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 | **Development Environment** | Visual Studio Code | Primary IDE used for writing SystemVerilog |
 | **Synthesis & Deployment** | Xilinx Vivado | Handled synthesis, implementation, and bitstream generation for the FPGA |
 | **Simulation & Verification** | EDAPlayground | Used for compiling RTL and analyzing waveform outputs to verify logic |
-| **Demo** | RISC-V Assembly | Created a custom demo assembly code that approximates closer to pi every second using a Monte Carlo plotting simulation |
+| **Demo** | RISC-V Assembly | Created a custom demo assembly code that approximates pi using a Monte Carlo plotting simulation |
 
 ---
 ## Demo Program: Monte Carlo π Approximation
@@ -44,7 +44,7 @@ To verify correct processor behavior, I implemented a Monte Carlo simulation wri
 ### Mathematical Principle
 The program approximates π by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (4095,4095) and determining the ratio of points that fall inside the shaded quarter circle using the following circle equation:
 
-$$x^2 + y^2 \le 1$$
+$$x^2 + y^2 \le $(4095^2)$$$
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/855c08f7-7e33-4f49-b01e-93e95c569be3" width="200px" alt="Monte Carlo">
