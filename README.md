@@ -342,7 +342,14 @@ Change register writing to trigger on `negedge clk` so that combinational reads 
 This is already solved because ScatterV uses splits memory modules. instruction_memory for instruction fetches, and program_memory for loading and reading
 
 ### Verification with SystemVerilog Assertions
+To verify that my hazard units are working correctly, I used SystemVerilog Assertions (SVA) to check that they actually did their job, I asserted these properties:
+- **EX-EX forwarding:** Checked that the forwarding signal actually changed upon the forwarding conditions
+- **MEM-EX forwarding:** Again, checked that the forwarding signal actually changed upon the forwarding conditions
+- **Stalling flag:** Checked that pc was actually frozen when `hazard_stall` was high
+- **Flushing flag:** Checked that IF/ID and ID/EX were successfully cleared when `pipeline_flush` was high
 
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/fd42985c-0add-44e9-b4e8-722458ecc7cd" />
+As expected, no error was printed to the console. To me, it was difficult to understand why anyone would use SVAs when they designed the direct logic themselves - a lot of these assertion properties seemed plain obvious. However, I eventually saw that in a team environment, error documentation is absolutely neccessary for when someone passes down their design to other digital design engineers. When designs become more complex, I imagine that becoming more reliant on SVAs is a great best practice for writing company code.
 
 ### Testing (pipelined) #1
 Here is the program earlier that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
