@@ -11,7 +11,7 @@ ScatterV is a **custom pipelined RISC-V processor** implemented in SystemVerilog
 This repository builds upon my previous work, [learningVerilog](https://github.com/LeeT27/learningVerilog), where I created a simple, single cycle processor to execute basic ALU, loads, stores, and jumps. ScatterV improves upon this through RISC-V compatibility, new complex instructions, pipelining, hazard detection, and hardware simulation. I separated the project into three major parts/milestones:
 1. Single cycle RISC-V core and RNG implementation
 2. Pipeline architecture and hazard mitigation
-3. Hardware synthesis and FPGA demo
+3. FPGA Deployment
    
 ---
 
@@ -393,7 +393,7 @@ Another success! The random number masked between 0x0007 and the LSFR was 0x0005
 - To be honest, I feel like I didn't need the packed structs because I passed down each individual member of the struct anyway down the pipeline registers anyway, so I feel that I could've just used a bit mapped vector to be more organized. Overall though it was nice learning how to define packed structs and how to import them into other files.
 ---
 
-## Part 3: Hardware synthesis and FPGA demo
+## Part 3: FPGA Deployment
 Now that I had a fully functional pipelined processor, the last goal was to deploy the design onto FPGA and then use its peripherals to showcase program functionality. I used the RealDigital Boolean Board, which features the Xilinx Spartan-7, with [Vivado 2025.2](https://www.amd.com/en/support/downloads/adaptive-socs-and-fpgas/development-tools/2025-2.html):
 
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/64426395-34fc-4b6d-bfcd-862ac77036a9" />
@@ -413,6 +413,13 @@ To display register data in decimal, I mapped output pins to drive the two 7-seg
 Since the 7-segment displays share segment lines across all digits, different numbers cannot be displayed without multiplexing. My solution to this was creating the `segment_decoder` module, which takes a decimal digit and then converts it into 8 bits corresponding to each segment with the correct lighting arrangement. 
 
 Since the 7-segment display needs time to light up due to the nature of transistors, I had to slow down the switching speed of the LEDs. I did this by creating a software clock from a 100 MHz hardware clock that runs a tick every 16,384 cycles for a refresh rate of 763 Hz. The display is fast enough that the human eye cannot see the flickering and not too fast to the point the transistor can't switch. The software clock selects a different digit to write every software tick via a 3-to-8 decoder.
+
+### Implementaion Flow
+Now that my constraints and I/O was properly configured, I just have to program device by running these 3 processes:
+- Synthesis: Translate SystemVerilog into logic gates
+- Implementation: Route the design by mapping into LUTs and BRAM
+- Bitstream Generation:
+After these, I clicked "Program Device", programming my FPGA board
 
 ## Overall Reflection
 
