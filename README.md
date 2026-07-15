@@ -398,6 +398,22 @@ Now that I had a fully functional pipelined processor, the last goal was to depl
 
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/64426395-34fc-4b6d-bfcd-862ac77036a9" />
 
+### I/O constraints and Hardware Mapping
+I used RealDigital's official [Boolean Board Constraint File](https://www.realdigital.org/hardware/boolean) to map the board's peripherals to the top module of my design.
+
+I rerouted the original `rst` input in the top_module to a button and added a button that freezes the program counter:
+- `btn[0]`: Assigned to `rst`
+- `btn[1]`: Disables writes to `if_pc`
+
+To display register data in decimal, I mapped output pins to drive the two 7-segment displays:
+- `D0_AN[3:0]` and  `D1_AN[3:0]` choose which digits to rewrite (rewrites if bit is 0)
+- `D0_SEG[7:0]` and  `D1_SEG[7:0]` lights up segments of selected digits (lights if bit is 0)
+
+### Decoder Module and Software Clock
+Since the 7-segment displays share segment lines across all digits, different numbers cannot be displayed without multiplexing. My solution to this was creating the `segment_decoder` module, which takes a decimal digit and then converts it into 8 bits corresponding to each segment with the correct lighting arrangement. 
+
+Since the 7-segment display needs time to light up due to the nature of transistors, I had to slow down the switching speed of the LEDs. I did this by creating a software clock from a 100 MHz hardware clock that runs a tick every 16,384 cycles for a refresh rate of 763 Hz. The display is fast enough that the human eye cannot see the flickering and not too fast to the point the transistor can't switch. The software clock selects a different digit to write every software tick via a 3-to-8 decoder.
+
 ## Overall Reflection
 
 ---
