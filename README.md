@@ -485,9 +485,9 @@ Again, here is the successful demo video:
 ### Performance Comparison
 To evaluate the performance gains of the new pipelined design compared to the previous single-cycle design. Using a targetted clock speed of **100 MHz (10 ns period)**, I ran timing analysis in Vivado to find the worst negative slack (WNS) value to calculate the max clock frequency ($F_{\text{max}}$) of each model:
 
-<div align="center">
-$$F_{\text{max}} = \frac{1}{T_{\text{target}} - \text{WNS}}$$
-</div>
+$$
+F_{\text{max}} = \frac{1}{T_{\text{target}} - \text{WNS}}
+$$
 
 | Design Version | Slack (WNS) | Max Speed ($F_{\text{max}}$) |
 | :--- | :--- | :--- |
