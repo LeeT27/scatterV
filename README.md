@@ -6,7 +6,7 @@
 March 31, 2026
 
 # ScatterV
-ScatterV is a **custom pipelined RISC-V processor** implemented in SystemVerilog and **synthesized on FPGA**. It features standard functionality of a RISC-V processor and **includes a custom instruction**, `RND`, which loads a pseudorandom number into a register using a linear feedback shift register (LFSR) to produce maximal-length sequences. I wanted to explore hardware-level random number generation for its applications in cryptography, simulations, and randomized algorithms.
+ScatterV is a **custom pipelined RISC-V processor** implemented in SystemVerilog and **synthesized on FPGA**. It features the standard functionality of a RISC-V processor and **includes a custom instruction**, `RND`, which loads a pseudorandom number into a register using a linear feedback shift register (LFSR) to produce maximal-length sequences. I wanted to explore hardware-level random number generation for its applications in cryptography, simulations, and randomized algorithms.
 
 This repository builds upon my previous work, [learningVerilog](https://github.com/LeeT27/learningVerilog), where I created a simple, single cycle processor to execute basic ALU, loads, stores, and jumps. ScatterV improves upon this through RISC-V compatibility, new complex instructions, pipelining, hazard detection, and hardware simulation. I separated the project into three major parts/milestones:
 1. Single-cycle RISC-V core and RNG implementation
@@ -18,7 +18,7 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 ## Features
 - **Instruction Set:** RV32I base instructions — R, I, U, S, B, J types
 - **Custom `RND` instruction:** Writes a pseudorandom number that changes every clock cycle with 32-bit LFSR to register
-- **Pipelined Architecture:** Multi stage execution for maximum clock speeds — IF → ID → EX → MEM → WB
+- **Pipelined Architecture:** Multi-stage execution for maximum clock speeds — IF → ID → EX → MEM → WB
 - **Hazard Protection:** Hazard protection using forwarding, stalling, flushing, and split memory
 - **FPGA Deployment:** Deployed on Spartan-7 FPGA with Vivado's toolchain (synthesis, implementation, bitstream generation)  
 - **I/O:** Seven-segment display peripheral, reset button, and PC freeze button
@@ -128,7 +128,7 @@ The ratio will converge to π as the sample size approaches ∞. For the sake of
 ---
 
 ## Part 1: Single-cycle RISC-V core and RNG implementation
-When I finished designing my very [first processor](https://github.com/LeeT27/learningVerilog) around a year ago, I felt very thrilled that I created a custom ISA CPU that could perform simple arithmetic programs. Reflecting, I realized that my ISA was inefficient, slow, and lacking in instructions. I wanted to try again as I felt more inspired to take on more industry level processors such as RISC-V, while also tackling pipeline theory. I chose RISC-V for its popularity in IoT, embedded systems, and operating systems. Finding that RISC-V is easily modifiable, I also wanted to create a custom instruction, `RND`, that could be used for demonstration because I found its real world applications to be amusing. Here is the theory behind hardware RNG:
+When I finished designing my very [first processor](https://github.com/LeeT27/learningVerilog) around a year ago, I felt very thrilled that I created a custom ISA CPU that could perform simple arithmetic programs. Reflecting, I realized that my ISA was inefficient, slow, and lacking in instructions. I wanted to try again as I felt more inspired to take on more industry-level processors such as RISC-V, while also tackling pipeline theory. I chose RISC-V for its popularity in IoT, embedded systems, and operating systems. Finding that RISC-V is easily modifiable, I also wanted to create a custom instruction, `RND`, that could be used for demonstration because I found its real-world applications to be amusing. Here is the theory behind hardware RNG:
 
 ### 🎲 `RND` Instruction Implementation
 The core of ScatterV's random number generation comes from the abstract algebra theory of primitive polynomials and its application on a linear feedback shift register (LFSR). To make sequences appear as random as possible every clock cycle, the amount of unique sequences before repeating the same pattern needs to be maximized. This is where the magic of primitive polynomials comes in. A primitive polynomial is a special type of irreducible polynomial, meaning that it cannot be factored into smaller polynomials. Another property is that a primitive polynomial of degree n has $(2^{n}-1)$ unique states before repeating to its old pattern (base will be 2 for digital logic). A good analogy is that if you have a deck of 52 cards, the shuffling mechanism of a primitive polynomial would go through all 52 cards before repeating the pattern rather than a smaller pattern of cycling through the same 8 cards. Here below is an example of a primitive polynomial of degree n = 3: 
@@ -249,12 +249,12 @@ initial begin
 Haha. Insanely large waveform. The first sample iteration loop took ~10,000 clock cycles, and EDAPlayground doesn't want to show more than 20,000 clock cycles. Moving forward, I will only stick with FPGA demos for this program because the abundance of data to be displayed on EDA. As I zoom in, the behaviour is working correctly for the one cycle, where it is correctly squared two random numbers between 0 and 255, added them to get 45370, and then correctly determined that the value is less than the threshold of 65025, counting as a hit. Therefore, both the sample count and hit count were incremented.
 
 ### Part 1 Reflection Notes
-- It felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper intermediates, and JALR.
+- It felt like a big jump going from my old custom ISA CPU to the official RISC-V ISA because of new instruction types such as branching, upper immediates, and JALR.
 - Starting with the top module and control unit first helped me visualize the I/O of the other modules easily.
 - New instruction types meant a lot more multiplexers in the top module to select next pc, writeback, operands, and more depending on the control signals.
 - A lot of new control signals seemed difficult to track and sometimes a whole new signal was needed for a single instruction.
-- One frustrating moment was when I had to implement funct7 extensions for SUB, SRA, and SRAI, since there were more than 8 arithmetic operations, where not only did I have to allow func3 to only be passed in R and I type instructions, I had to specifically disable funct3 for ADDI so that the immediate value doesn't trigger an unintentional subtract.
-- It was difficult implementing byte, half word, and full word stores and loads because I had to manage offsets if the selected memory address wasn't a factor of 4.
+- One frustrating moment was when I had to implement funct7 extensions for SUB, SRA, and SRAI, since there were more than 8 arithmetic operations, where not only did I have to allow funct3 to only be passed in R and I type instructions, I had to specifically disable funct3 for ADDI so that the immediate value doesn't trigger an unintentional subtract.
+- It was difficult implementing byte, half-word, and full word stores and loads because I had to manage offsets if the selected memory address wasn't a factor of 4.
 - What helped me to debug these was working was constantly using EDAPlayground and appending register signals to test each individual instructions and making sure the correct control signals and multiplexer results had correct behaviour.
 
 ## Part 2: Pipeline architecture and hazard mitigation
@@ -390,7 +390,7 @@ Another success! The random number masked between 0x0007 and the LFSR was 0x0005
 - I was surprised to find that there were so many different ways I could've designed this. A good example was when I was trying to extract `id_opcode` from the instruction. I could've either latched `if_instruction[6:0]` via a flip-flop to `id_opcode`, or I could've waited for `if_id_instruction` to come out of its flip-flop so that I could combinationally assign `if_id_instruction[6:0]` to `id_opcode`. I discovered that there are different minor benefits and tradeoffs to each approach: additional pipeline register vs more fanout.
 - I did have to change the `data_memory` reads to be synchronous instead of asynchronous like in the single-cycle model. While many textbooks on pipelined RISC-V architecture utilize asynchronous reads, synthesis on the FPGA would cause problems as the asynchronous reads would prevent the memory from being inferred as BRAM. RAM would have to be built out of lookup tables (LUT), causing very large combinational paths → lower max clock speed. By making reading synchronous, the RAM can be mapped to the BRAM, leaving more space for LUTs to be used for other combinational logic. Because of this however, RAM read data is ready a clock cycle later, meaning that in the case of a load use hazard, an extra stall cycle on top of the first one is needed wait for the data to be read and forwarded. In future processor projects, I plan to find ways to mitigate the two cycle stall problem.
 - At times it got a little confusing when I added the mem stage name registers because some of my control signals also started with "mem". For more than half this part of the project, I kept getting confused by the names, so I just renamed the control signals to be less ambiguous. For example, I changed the signal name of "mem_read" to "ram_read".
-- To be honest, I feel like I didn't need the packed structs because I passed down each individual member of the struct anyway down the pipeline registers anyway, so I feel that I could've just used a bit mapped vector to be more organized. Overall though it was nice learning how to define packed structs and how to import them into other files.
+- To be honest, I feel like I didn't need the packed structs because I passed down each individual member of the struct anyway down the pipeline registers anyway, so I feel that I could've just used a bit-mapped vector to be more organized. Overall though it was nice learning how to define packed structs and how to import them into other files.
 ---
 
 ## Part 3: FPGA Deployment
@@ -482,7 +482,7 @@ Again, here is the successful demo video:
   </a>
 </p>
 
-### Optimitizion Results
+### Optimization Results
 
 ### Part 3 Reflection Notes
 - Despite the thrill of successfully approximating π to three decimal digits, this part of the project didn't come without its frustrations. To be honest, this part of the project was overall frustrating, especially when I added Vivado to the project environment.
