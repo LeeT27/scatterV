@@ -341,6 +341,9 @@ Change register writing to trigger on `negedge clk` so that combinational reads 
 * Two instructions try to read RAM in the same clock cycle when RAM only has one read
 This is already solved because ScatterV uses splits memory modules. instruction_memory for instruction fetches, and program_memory for loading and reading
 
+### Verification with SystemVerilog Assertions
+
+
 ### Testing (pipelined) #1
 Here is the program earlier that performs a simple 1+1=2. Load 1 into x1, 1 into x2, add them together and save into x3. End the program by looping PC to never end.
 
