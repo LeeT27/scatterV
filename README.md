@@ -422,7 +422,7 @@ Now that my constraints and I/O was properly configured, I just had to program d
 After these, I clicked "Program Device", finally programming my FPGA board
 
 ### Final Demo
-Just like in part 1, I ran the Monte Carlo program or the demo, but with the FPGA this time. I also mapped the decimal digits of registers x9 and x10 to the 7-segment display to display the sample counter on the left and the hit counter on the right. Upon reaching this part of the project and finally being able to simulate multiple iterations of plotted points, I had to make some changes to the demo program:
+Just like in part 1, I ran the Monte Carlo program or the demo, but with the FPGA this time. I also mapped the decimal digits of registers x9 and x10 to the 7-segment display to display the sample counter on the left and the hit counter on the right. Upon reaching this part of the project and finally being able to simulate multiple iterations of plotted points, I had to make changes to the demo program:
 - Changed to a 12 bit coordinate resolution instead of 8 to approximate much closer to π rather than 3.13
 - Changed Y coordinate to be completely independent of X by shifting the LSFR to the right by 12 bits
    - This was a major problem before as Y would previously always be dependent on X since the repeated `RND` instruction was two clock cycles after the X, meaning Y was just X, but shifted to the left twice, varying up to 3
