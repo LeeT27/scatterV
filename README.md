@@ -484,6 +484,12 @@ Again, here is the successful demo video:
 
 ### Optimatizion Results
 
-## Overall Reflection
+### Part 3 Reflection Notes
+- Despite the thrill of successfully approximating π to three decimal deigits, this part of the project didn't come without it's frustrations. To be honest, this part of the project was overall frustrating, especially when I added Vivado to the project environment.
+- When I opened Vivado, I quickly felt overwhelmed as it seemed like nonstop settings and configurations were just blasted at my face. There were so many configurations that I was scared of turning on or not turning on, fearing that it would possibly ruin the programming process of the FPGA.
+- For a whole straight two hours, I found out that the reason my design wasn't implementing was because I chose the board, "AMD Spartan-7 SP701 FPGA Evaluation Platform" and not the part, "xc7s50csga324-1". Before that I was doing literally everything like changing clock speed, remapping the top module peripheral I/O, deleting constraints, and basically double checking every module for possible errors
+- Another painfully long bug that took me 2 whole days to fix was that once I got the part name correct, the program kept approximating to ≈ 3.08 rather than 3.141592. I tried changing the clock speed again, simulating a full circle rather than quarter, changing the clock burner delay, even changing case statements for the digit printing. Eventually I found that the problem like mentioned in the demo changes above was that Y was dependent of X as it was the same value but shifted to the left by two with a possible difference of 3. After changing the resolution from 8 to 12 bits and shifting the LSFR by 12 bits to the right, the demo was finally fixed.
+
+## Final Reflection
 
 ---
