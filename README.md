@@ -44,7 +44,7 @@ To verify correct processor behavior, I implemented a Monte Carlo simulation wri
 ### Mathematical Principle
 The program approximates π by generating random coordinate points $(x, y)$ within a square area bounded by (0,0) and (4095,4095) and determining the ratio of points that fall inside the shaded quarter circle using the following circle equation:
 
-$$x^2 + y^2 \le $(4095^2)$$$
+$$x^2 + y^2 \le 4095^2$$
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/855c08f7-7e33-4f49-b01e-93e95c569be3" width="200px" alt="Monte Carlo">
