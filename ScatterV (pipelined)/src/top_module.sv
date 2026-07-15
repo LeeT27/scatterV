@@ -28,8 +28,8 @@ endpackage
 import pipeline_pkg::*;
 
 module top_module (
-    input clk,
-    input rst
+    input logic clk,
+    input logic rst
 );
 
     // GLOBAL
@@ -149,7 +149,24 @@ module top_module (
         end
     end
 
-    // Forwarding unit rs2
+    property p_ex_ex_forward_rs1;
+        @(posedge clk) disable iff (rst)
+        (ex_mem_control.reg_write && (ex_mem_rd != 5'd0) && (ex_mem_rd == id_ex_rs1)) |-> (forward_a == 2'b01);
+    endproperty
+    assert_ex_ex_forward_rs1: assert property (p_ex_ex_forward_rs1) 
+        else $error("EX-to-EX hazard failed to route to RS1.");
+
+    property p_mem_ex_forward_rs1;
+        @(posedge clk) disable iff (rst)
+        (mem_wb_control.reg_write && (mem_wb_rd != 5'd0) && (mem_wb_rd == id_ex_rs1) &&
+        !(ex_mem_control.reg_write && (ex_mem_rd != 5'd0) && (ex_mem_rd == id_ex_rs1)))
+        |-> 
+        (forward_a == 2'b10);
+    endproperty
+    assert_mem_ex_forward_rs1: assert property (p_mem_ex_forward_rs1) 
+        else $error("MEM-to-EX hazard failed to route to RS1.");
+        
+        // Forwarding unit rs2
     always_comb begin
         forward_b = 2'b00;
 
@@ -163,6 +180,23 @@ module top_module (
         end
     end
 
+    property p_ex_ex_forward_rs2;
+        @(posedge clk) disable iff (rst)
+        (ex_mem_control.reg_write && (ex_mem_rd != 5'd0) && (ex_mem_rd == id_ex_rs2)) |-> (forward_b == 2'b01);
+    endproperty
+        assert_ex_ex_forward_rs2: assert property (p_ex_ex_forward_rs2) 
+            else $error("EX-to-EX hazard failed to route to RS2.");
+
+    property p_mem_ex_forward_rs2;
+        @(posedge clk) disable iff (rst)
+        (mem_wb_control.reg_write && (mem_wb_rd != 5'd0) && (mem_wb_rd == id_ex_rs2) &&
+        !(ex_mem_control.reg_write && (ex_mem_rd != 5'd0) && (ex_mem_rd == id_ex_rs2)))
+        |-> 
+        (forward_b == 2'b10); // Expect MEM-to-EX select value
+    endproperty
+    assert_mem_ex_forward_rs2: assert property (p_mem_ex_forward_rs2) 
+        else $error("MEM-to-EX hazard failed to route to RS2.");
+    
     // Stalling flag
     always_comb begin
         hazard_stall = 1'b0;
@@ -178,6 +212,14 @@ module top_module (
         end
     end
 
+    property p_pc_stalls;
+        @(posedge clk) disable iff(rst)
+        hazard_stall |=> $stable(if_pc);
+    endproperty
+
+    assert_p_pc_stalls: assert property (p_pc_stalls)
+        else $error("hazard_stall not freezing pc.");
+        
     // Flush flag
     always_comb begin
         pipeline_flush = 1'b0; 
@@ -189,7 +231,15 @@ module top_module (
             default: pipeline_flush = 1'b0; // Normal
         endcase
     end
+        
+    property p_pipeline_flush;
+        @(posedge clk) disable iff (rst)
+        pipeline_flush |=> (if_id_instruction == 32'h00000013) && (if_id_pc == 32'b0) && (id_ex_control == '0);
+    endproperty
 
+    assert_pipeline_flush: assert property (p_pipeline_flush)
+        else $error("Flush failed.");
+            
     // MUX for choosing correct rs1 data
     always_comb begin
         case (forward_a)
