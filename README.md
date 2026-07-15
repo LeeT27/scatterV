@@ -58,7 +58,7 @@ The ratio will converge to π as the sample size approaches ∞. For the sake of
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=-C9KRU8tSlg">
-    <img src="https://github.com/user-attachments/assets/0c46638d-2549-4b72-9456-93bbb868283e" alt="ScatterV 5-Stage RISC-V: Monte Carlo π Approximation on FPGA" width="70%">
+    <img src="https://www.youtube.com/watch?v=04T320I4pu4" alt="ScatterV 5-Stage RISC-V: Monte Carlo π Approximation on FPGA" width="70%">
   </a>
 </p>
 
