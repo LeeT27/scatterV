@@ -422,12 +422,17 @@ Now that my constraints and I/O was properly configured, I just had to program d
 After these, I clicked "Program Device", finally programming my FPGA board
 
 ### Final Demo
-Just like in part 1, I ran the Monte Carlo program or the demo, but with the FPGA this time. I also mapped the decimal digits of registers x9 and x10 to the 7-segment display to display the sample counter on the left and the hit counter on the right.
+Just like in part 1, I ran the Monte Carlo program or the demo, but with the FPGA this time. I also mapped the decimal digits of registers x9 and x10 to the 7-segment display to display the sample counter on the left and the hit counter on the right. Upon reaching this part of the project and finally being able to simulate multiple iterations of plotted points, I had to make some changes to the demo program:
+- Changed to a 12 bit coordinate resolution instead of 8 to approximate much closer to π rather than 3.13
+- Changed Y coordinate to be completely independent of X by shifting the LSFR to the right by 12 bits
+   - This was a major problem before as Y would previously always be dependent on X since the repeated `RND` instruction was two clock cycles after the X, meaning Y was just X, but shifted to the left twice, varying up to 3
+- Created a clock burner subroutine that wastes 66,666 cycles before branching back to `loop` so that simulation is easier to view
+
 ```systemverilog
 initial begin
         mem[0]  = 32'h00FFE337; // lui x6, 4094         
         mem[1]  = 32'h00130313; // addi x6, x6, 1         x6 = threshold = 4095^2 = 16,769,025
-        mem[2]  = 32'h000015B7; // lui x11, 1             x11 = 4096)
+        mem[2]  = 32'h000015B7; // lui x11, 1             x11 = 4096
         mem[3]  = 32'hFFF58593; // addi x11, x11, -1      x11 = 4095 = 0xFFF mask
         mem[4]  = 32'h000004B3; // add x9, x0, x0         hits = 0
         mem[5]  = 32'h00000533; // add x10, x0, x0        samples = 0
