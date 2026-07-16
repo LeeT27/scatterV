@@ -494,15 +494,9 @@ Again, here is the successful demo video:
   </a>
 </p>
 
-### Performance Comparison
-To evaluate the performance gains of the new pipelined design compared to the previous single-cycle design. Using varying clock speed targets, I ran timing analysis in Vivado to find the max clock frequency ($F_{\text{max}}$) that each model can run while maintaining a positve worst negative slack (WNS) value:
+### Max Clock Speed
+To evaluate the performance performance I ran a timing analysis in Vivado to find the max clock frequency ($F_{\text{max}}$) that the model could maintain while still having a positve worst negative slack (WNS) value. I found that the fastest frequency to be **97.087 MHz**, with a **WNS of 0.011 ns**. The worst case path taken is from `mem_wb_control.reg_write`, where it is fed into the forwarding multiplexer that passes wb_data to an execution operand, added the other operand to activate a branch and a flush signal, which clears all of `if_instruction`. If I could change something about my design, it would be to evaluate branches in the ID stage instead of EX, so that the MEM-EX forwarding does't ever reach the branching path.
 
-| Design Version | Max Clock Speed ($F_{\text{max}}$) |
-| :--- | :--- |
-| **Single-Cycle** | 54.05 MHz |
-| **Pipelined** | 97.087 MHz |
-
-Makes sense considering how the single-cycle processor has a way longer worst propagation path compared to the pipelined processor.
 ### Part 3 Reflection Notes
 - Despite the thrill of successfully approximating π to three decimal digits, this part of the project didn't come without its frustrations. To be honest, this part of the project was overall frustrating, especially when I added Vivado to the project environment.
 - When I opened Vivado, I quickly felt overwhelmed as it seemed like nonstop settings and configurations were just blasted at my face. There were so many configurations that I was scared of turning on or not turning on, fearing that it would possibly ruin the programming process of the FPGA.
