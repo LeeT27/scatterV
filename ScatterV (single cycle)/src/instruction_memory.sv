@@ -1,6 +1,6 @@
 module instruction_memory (
-    input  logic [31:0] if_pc,
-    output logic [31:0] if_instruction
+    input  logic [31:0] pc_out,
+    output logic [31:0] instruction
 );
     logic [31:0] mem [0:63];
 
@@ -49,5 +49,5 @@ module instruction_memory (
         mem[30] = 32'hFA1FF06F; // jal x0, loop
     end
 
-    assign if_instruction = mem[if_pc[7:2]];
+    assign instruction = mem[pc_out[7:2]];
 endmodule
