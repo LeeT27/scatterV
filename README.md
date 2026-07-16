@@ -14,6 +14,8 @@ This repository builds upon my previous work, [learningVerilog](https://github.c
 3. FPGA Deployment
    
 ---
+## Block Diagram
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/4c3c1948-124d-42af-b632-ff59af2ea539" />
 
 ## Features
 - **Instruction Set:** RV32I base instructions — R, I, U, S, B, J types
